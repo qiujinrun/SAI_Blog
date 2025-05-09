@@ -21,20 +21,21 @@
             size="10"
             background
             layout="prev, pager, next"
-            :total="totalmsg"
+            :total="blogcount"
             class="mt-4"
             v-model:current-page="pageNo"
         />
     </div>
 </template>
 <script setup lang="ts">
-import { ref,onMounted } from 'vue';
-import { getbloglist } from '@/api/Home';
-// import { ElMessage } from 'element-plus';
+import { ref,onMounted,watch } from 'vue';
+import { getbloglist,getblogcount } from '@/api/Home';
+import { ElMessage } from 'element-plus';
 let pageNo = ref<string>('1')
 let key = ref<string>('') 
 let totalmsg = ref<number>(90)
 const bloglist = ref<Blog[]>([]);
+const blogcount = ref<number>(0);
 // let pageSize = ref<number>(10)
 // // let total = ref<number>(0)
 
@@ -58,6 +59,9 @@ interface BlogListResponse {
   status_msg: string;
   Blogs: Blog[];
 }
+watch(pageNo, (newVal) => {
+  fetchBlogList();
+});
 const fetchBlogList = async () => {
   const res = await getbloglist(key.value, pageNo.value);
   const data: BlogListResponse = res;
@@ -65,12 +69,17 @@ const fetchBlogList = async () => {
   totalmsg.value = data.Blogs.length;
   console.log(bloglist.value);
 };
+const fetchBlogCount = async () => {
+  const res = await getblogcount();
+  if (res.status_code === 1) {
+    blogcount.value = res.status_msg;
+  } else {
+    ElMessage.error('登录请求失败，请稍后再试');
+  }
+}
 onMounted(async () => {
-    // const res = await getbloglist(key.value,pageNo.value);
-    // const data: BlogListResponse = res;
-    // bloglist.value = data.Blogs; 
-    // console.log(bloglist.value);  
     fetchBlogList();
+    fetchBlogCount();
 })
 </script>
 <style scoped lang="scss"> 

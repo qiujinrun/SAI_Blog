@@ -33,6 +33,9 @@ import Header from '@/components/Home/header.vue'
 import { Toolbar, Editor } from '@wangeditor/editor-for-vue'
 import '@wangeditor/editor/dist/css/style.css'
 import { postblog } from '@/api/PostBlog'
+import { ElMessage } from 'element-plus'
+import { useRouter } from 'vue-router'
+const router = useRouter()
 // 编辑器实例，必须用 shallowRef
 const editorRef = shallowRef()
 const toolbarConfig = {}
@@ -41,13 +44,6 @@ const editortitle = ref('')
 // 内容 HTML
 const valueHtml = ref('')
 const mode = 'default' // 或 'simple' 取决于你想要的样式
-
-watch(valueHtml, (newVal, oldVal) => {
-  if (newVal) {
-    console.log('editor 已创建:', newVal)
-    // 你可以在这里对 editor 实例做一些操作
-  }
-})
 const Menudata = ref({
 
   menu: [
@@ -74,7 +70,12 @@ const PostBlog = async (e) => {
     const answerJson = JSON.stringify(answer);
     console.log(answer)
     const res = await postblog(answerJson)
-    
+    if (res.status_code === 1) {
+      ElMessage.success('上传成功') 
+      router.push('/home')
+    } else {
+      ElMessage.error('上传失败') 
+    }
     console.log(res) 
   }catch (error) {
     console.log(error) 

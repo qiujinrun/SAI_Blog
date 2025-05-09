@@ -7,3 +7,11 @@ export function getbloglist(key:string,page:string){
         params:{key,page},
     })
 }
+//获取博客总数
+export function getblogcount(){
+    return request({
+        url:'/blog/count',
+        method:'get',
+
+    })
+}
