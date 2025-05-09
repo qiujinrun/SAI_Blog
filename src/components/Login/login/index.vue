@@ -54,7 +54,6 @@ const login = async () => {
       ElMessage.error('登录失败');
     }
   } catch (error) {
-    console.error("登录请求错误:", error);
     ElMessage.error('登录请求失败，请稍后再试');
   }
 }

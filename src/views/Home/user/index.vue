@@ -17,6 +17,10 @@
                 <div><strong>{{ userinfo.followed }}</strong><div>关注数</div></div>
                 <div><strong>{{ userinfo.follower }}</strong><div>粉丝数</div></div>
             </div>
+            <div class="btn-group">
+                <el-button class="subscribe" type="success" @click="subscribe">关注他</el-button>
+                <el-button class="message" type="default">发私信</el-button>
+            </div>
             <template #footer>Footer content</template>
         </el-card>
     </div>
@@ -71,6 +75,19 @@ onMounted(() => {
     justify-content: space-around;
     margin: 12px 0;
     font-size: 22px;
+    }
+    .btn-group{
+        .subscribe{
+            font-size: 20px;
+            width: 200px;
+            height: 50px;
+        }
+        .message{
+            margin-left: 30px;
+            font-size: 20px;
+            width: 200px;
+            height: 50px; 
+        }
     }
 }
 </style>

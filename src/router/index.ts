@@ -33,7 +33,7 @@ export default createRouter({
         {
           path: 'blog',
           name: '博客',
-          component: () => import('../views/Home/blog/index.vue') 
+          component: () => import('../views/Home/bloglist/index.vue') 
         },
         {
           path: 'subscribe',
