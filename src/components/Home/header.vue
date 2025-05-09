@@ -15,13 +15,13 @@
         <el-menu-item>
           <p class="img-caption">SAI_BLOG</p>
         </el-menu-item>
-        <el-menu-item>
+        <!-- <el-menu-item>
           <el-icon><MagicStick /></el-icon>
           {{ Menudata.title }}
-        </el-menu-item>
+        </el-menu-item> -->
         <template v-for="item in Menudata.menu" :key="item.index">
           <el-menu-item :index="item.index">
-            <el-icon><Folder /></el-icon>
+            <!-- <el-icon><Folder /></el-icon> -->
             {{ item.label }}
           </el-menu-item>
         </template>
@@ -39,7 +39,7 @@
         type="success"
         @click="editor"
       >
-        写博客
+        撰写博客
       </el-button>
       <div class="demo-basic--circle">
         <div class="block">
@@ -117,10 +117,9 @@ const editor = () => {
   margin: 0 !important;
   padding: 0 20px;
 }
-.el-menu--horizontal > .el-menu-item:nth-child(2) {
-  margin-right: auto;
-}
-
+// .el-menu--horizontal > .el-menu-item:nth-child(2) {
+//   margin-right: auto;
+// }
 .img-caption {
   margin: 0;
   font-size: 25px;

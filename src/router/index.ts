@@ -20,6 +20,11 @@ export default createRouter({
       component: () => import('../views/Home/editor/index.vue'),
     },
     {
+      path: '/home/user/:uid', 
+      name: '作者详情', 
+      component: () => import('../views/Home/user/index.vue'),
+    },
+    {
       path: '/home',
       name: 'Home',
       component: () => import('../views/Home/index.vue') ,

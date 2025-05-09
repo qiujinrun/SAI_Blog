@@ -42,18 +42,18 @@ const editortitle = ref('')
 const valueHtml = ref('')
 const mode = 'default' // 或 'simple' 取决于你想要的样式
 
-// watch(editorRef, (newVal, oldVal) => {
-//   if (newVal) {
-//     console.log('editor 已创建:', newVal)
-//     // 你可以在这里对 editor 实例做一些操作
-//   }
-// })
+watch(valueHtml, (newVal, oldVal) => {
+  if (newVal) {
+    console.log('editor 已创建:', newVal)
+    // 你可以在这里对 editor 实例做一些操作
+  }
+})
 const Menudata = ref({
-  title: '编辑页面',
+
   menu: [
 //   {  label: '首页' }
-    // { index: '/branch/member-info', label: '首页' },
-    // { index: '/branch/personnel', label: '人员管理' }
+    { index: '/home', label: '首页' },
+    {  label: '撰写博客' }
   ]
 })
 
@@ -63,13 +63,18 @@ const Menudata = ref({
 
 //   editor.insertText('hello world') // 执行 editor API
 // }
-const content = {
-  title: editortitle,
-  content: valueHtml.value 
-}
-const PostBlog = async (content) => {
+
+const PostBlog = async (e) => {
+    const answer = {
+        title: editortitle.value,
+        content: valueHtml.value 
+    }
   try {
-    const res = await postblog(content)
+    
+    const answerJson = JSON.stringify(answer);
+    console.log(answer)
+    const res = await postblog(answerJson)
+    
     console.log(res) 
   }catch (error) {
     console.log(error) 

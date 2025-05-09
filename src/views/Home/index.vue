@@ -39,10 +39,10 @@ import Header from '@/components/Home/header.vue'
 import { ref } from 'vue'
 
 const Menudata = ref({
-  title: '首页',
+  // title: '首页',
   menu: [
 //   {  label: '首页' }
-    // { index: '/branch/member-info', label: '首页' },
+    { index: '/home', label: '首页' },
     // { index: '/branch/personnel', label: '人员管理' }
   ]
 })
@@ -84,6 +84,7 @@ function handleSelect(index) {
 }
 .main-content{
   padding-top: 60px;
+  margin-left: 180px;
 }
 .tac{
   .el-col {

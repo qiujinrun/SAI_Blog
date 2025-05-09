@@ -1,7 +1,7 @@
 import axios from 'axios'
 import type { AxiosInstance, AxiosResponse } from 'axios'
 import { ElMessage } from 'element-plus'
-const request: AxiosInstance = axios.create({
+const request = axios.create({
     baseURL: '/api',
     timeout: 5000,
     headers: { 'Content-Type': 'application/json' }
@@ -10,11 +10,9 @@ const request: AxiosInstance = axios.create({
 request.interceptors.request.use(
     (config) => {
     const token = localStorage.getItem('token') || '';
-    console.log('Interceptor token:', token);
     if (token) {
         config.headers.Authorization = token;
     }
-    console.log("[Interceptor] Headers:", config.headers);
     return config;
     },
     (error) => {
