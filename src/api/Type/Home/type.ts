@@ -1,7 +1,7 @@
 export interface BloglistResponse {
     status_code: number;
     status_msg: string;
-    Blogs:Blog[];
+    Blogs: Blog[];
 }
 
 export interface Blog {
@@ -21,7 +21,7 @@ export interface Comment {
     comment: string;
 }
 
-export interface BlogListCountResponse  {
+export interface BlogListCountResponse {
     status_code: number;
     status_msg: number;
 }
@@ -45,4 +45,24 @@ export interface User {
 export interface FollowResponse {
     status_code: number;
     status_msg: string;
+}
+
+export interface UnFollowResponse {
+    status_code: number;
+    status_msg: string;
+}
+
+
+//博客详情
+export interface BlogDetailResponse {
+    status_code: number;
+    status_msg: string;
+    blog_id: number;
+    uid: number;
+    user_name: string;
+    title: string;
+    content: string;
+    likes: number;
+    comments: number;
+    comment: Comment[];
 }

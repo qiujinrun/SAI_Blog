@@ -14,11 +14,26 @@
                 <span>{{userinfo.name}}</span>
             </div>
             <div class="user-stats">
-                <div><strong>{{ userinfo.followed }}</strong><div>关注数</div></div>
-                <div><strong>{{ userinfo.follower }}</strong><div>粉丝数</div></div>
+                <div><strong>{{ userinfo.follower }}</strong><div>关注数</div></div>
+                <div><strong>{{ userinfo.followed }}</strong><div>粉丝数</div></div>
             </div>
             <div class="btn-group">
-                <el-button class="subscribe" type="success" @click="subscribe">关注他</el-button>
+                <el-button
+                v-if="!userinfo.is_follow"
+                class="subscribe"
+                type="success"
+                @click="subscribe"
+                >
+                关注他
+                </el-button>
+                <el-button
+                v-if="userinfo.is_follow"
+                class="subscribe"
+                type="success"
+                @click="unsubscribe"
+                >
+                取消关注
+                </el-button>
                 <el-button class="message" type="default">发私信</el-button>
             </div>
             <template #footer>Footer content</template>
@@ -26,15 +41,23 @@
     </div>
 </template>
 <script setup lang="ts">
-import { ref,onMounted } from 'vue'
+import { ref,onMounted,watch } from 'vue'
+import type { User } from '@/api/Type/Home/type'
 import Header from '@/components/Home/header.vue'
-import { userdetail,follow } from '@/api/Home/user'
+import { userdetail,follow,unfollow } from '@/api/Home/user'
 import { useRoute } from 'vue-router'
 // import type { AxiosResponse } from 'axios';
 import { ElMessage } from 'element-plus';
 const route = useRoute()
 const uid = route.params.uid
-const userinfo = ref({})
+const userinfo = ref<User>({
+    ID: 0,
+    name: '',
+    ico_url: '',
+    follower: 0,
+    following: 0,
+    is_follow: false
+})
 const Menudata = ref({
 //   title: '首页',
   menu: [
@@ -50,11 +73,30 @@ const getuserdetail = async () => {
     } else {
         ElMessage.error(res.status_msg)}
 }
+//监听变化，实时更新
+watch(
+    () => userinfo.value.is_follow,
+    (newPath) => {
+      getuserdetail()
+    }
+  )
+//关注
 const subscribe = async () => {
     const res = await follow(uid);
     console.log(res)
     if (res.status_code === 1) {
         ElMessage.success(res.status_msg)
+        userinfo.value.is_follow = true
+    } else {
+        ElMessage.error(res.status_msg) 
+    }
+}
+//取消关注
+const unsubscribe = async () => {
+    const res = await unfollow(uid);
+    if (res.status_code === 1) {
+        ElMessage.success(res.status_msg)
+        userinfo.value.is_follow = false
     } else {
         ElMessage.error(res.status_msg) 
     }
