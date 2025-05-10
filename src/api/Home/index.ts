@@ -1,7 +1,7 @@
 import  request  from "@/utils/request";
-
+import type { BloglistResponse,BlogListCountResponse } from "../Type/Home/type";
 export function getbloglist(key:string,page:string){
-    return request({
+    return request<BloglistResponse>({
         url:'/blog/list',
         method:'get',
         params:{key,page},
@@ -9,7 +9,7 @@ export function getbloglist(key:string,page:string){
 }
 //获取博客总数
 export function getblogcount(){
-    return request({
+    return request<BlogListCountResponse>({
         url:'/blog/count',
         method:'get',
 

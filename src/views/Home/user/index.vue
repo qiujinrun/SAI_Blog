@@ -28,9 +28,10 @@
 <script setup lang="ts">
 import { ref,onMounted } from 'vue'
 import Header from '@/components/Home/header.vue'
-import { userdetail } from '@/api/Home/user'
+import { userdetail,follow } from '@/api/Home/user'
 import { useRoute } from 'vue-router'
-import type { AxiosResponse } from 'axios';
+// import type { AxiosResponse } from 'axios';
+import { ElMessage } from 'element-plus';
 const route = useRoute()
 const uid = route.params.uid
 const userinfo = ref({})
@@ -41,19 +42,22 @@ const Menudata = ref({
     {  label: '用户详情' }
   ]
 })
-interface UserDetailResponse {
-    status_code: number;
-  user: {
-    id: number;
-    name: string;
-  };
-}
 const getuserdetail = async () => {
-    const res: AxiosResponse<UserDetailResponse> = await userdetail(uid);
-        console.log(res)
-  if (res.status_code === 1) {
-     userinfo.value = res.user
-  }
+    const res = await userdetail(uid);
+    console.log(res)
+    if (res.status_code === 1) {
+        userinfo.value = res.user;
+    } else {
+        ElMessage.error(res.status_msg)}
+}
+const subscribe = async () => {
+    const res = await follow(uid);
+    console.log(res)
+    if (res.status_code === 1) {
+        ElMessage.success(res.status_msg)
+    } else {
+        ElMessage.error(res.status_msg) 
+    }
 }
 onMounted(() => {
   getuserdetail()

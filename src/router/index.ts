@@ -25,6 +25,11 @@ export default createRouter({
       component: () => import('../views/Home/user/index.vue'),
     },
     {
+      path: '/home/blogdetail/uid', 
+      name: '博客详情', 
+      component: () => import('../views/Home/blogdetail/index.vue'),
+    },
+    {
       path: '/home',
       name: 'Home',
       component: () => import('../views/Home/index.vue') ,

@@ -1,5 +1,5 @@
 import axios from 'axios'
-import type { AxiosInstance, AxiosResponse } from 'axios'
+import type { AxiosInstance, AxiosResponse,AxiosRequestConfig } from 'axios'
 import { ElMessage } from 'element-plus'
 const request = axios.create({
     baseURL: '/api',
@@ -51,7 +51,10 @@ request.interceptors.response.use(
       }
       return Promise.reject(new Error(error.message))
   }
-)
 
-export default request
+)
+export default function <T = any>(config: AxiosRequestConfig): Promise<T> {
+    return request(config)
+  }
+// export default request
 
