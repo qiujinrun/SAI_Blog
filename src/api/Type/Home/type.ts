@@ -42,6 +42,7 @@ export interface User {
     is_follow: boolean;
 }
 
+//关注
 export interface FollowResponse {
     status_code: number;
     status_msg: string;
@@ -60,6 +61,7 @@ export interface BlogDetailResponse {
     blog_id: number;
     uid: number;
     user_name: string;
+    user_icon: string;
     title: string;
     content: string;
     likes: number;

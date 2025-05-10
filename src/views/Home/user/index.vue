@@ -38,6 +38,8 @@
             </div>
             <template #footer>Footer content</template>
         </el-card>
+        <div class="el-container">
+        </div>
     </div>
 </template>
 <script setup lang="ts">

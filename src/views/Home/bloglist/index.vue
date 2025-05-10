@@ -3,8 +3,12 @@
         <div class="el-header">博客列表</div>
         <div class="el-container"> 
             <div v-for="item in bloglist" :key="item.blog_id" class="el-model">
-                <div class="title">{{ item.title }}</div>
-                <!-- <div class="content">{{ item.content }}</div> -->
+                <!-- <div class="title">{{ item.title }}</div> -->
+                 <div class="title">
+                  <router-link :to="`/home/blogdetail/${item.blog_id}`" class="titledetail">
+                      <strong>{{ item.title }}</strong>
+                  </router-link>
+                </div>
                 <span class="writer">
                 作者：
                 <router-link :to="`/home/user/${item.uid}`" class="username">
@@ -30,44 +34,28 @@
 <script setup lang="ts">
 import { ref,onMounted,watch } from 'vue';
 import { getbloglist,getblogcount } from '@/api/Home';
+import type { Blog } from '@/api/Type/Home/type';
 import { ElMessage } from 'element-plus';
 let pageNo = ref<string>('1')
 let key = ref<string>('') 
 let totalmsg = ref<number>(90)
-const bloglist = ref<Blog[]>([]);
+const bloglist = ref({} as Blog[]);
 const blogcount = ref<number>(0);
 // let pageSize = ref<number>(10)
 // // let total = ref<number>(0)
 
-//定义数据类型
-interface Blog {
-  blog_id: number;
-  uid: number;
-  title: string;
-  content: string;
-  likes: number;
-  comments: number;
-  comment: {
-    blog_id: number;
-    cid: number;
-    comment: string;
-  }[];
-}
 
-interface BlogListResponse {
-  status_code: number;
-  status_msg: string;
-  Blogs: Blog[];
-}
 watch(pageNo, (newVal) => {
   fetchBlogList();
 });
 const fetchBlogList = async () => {
   const res = await getbloglist(key.value, pageNo.value);
-  const data: BlogListResponse = res;
-  bloglist.value = data.Blogs;
-  totalmsg.value = data.Blogs.length;
-  console.log(bloglist.value);
+  if (res.status_code === 1) {
+    bloglist.value = res.Blogs;
+    totalmsg.value = res.Blogs.length;
+  } else {
+    ElMessage.error('登录请求失败，请稍后再试'); 
+  }
 };
 const fetchBlogCount = async () => {
   const res = await getblogcount();
@@ -106,6 +94,9 @@ onMounted(async () => {
             font-weight: bold;
             margin-bottom: 5px;
             margin-left: 15px;
+            .titledetail{
+                color: black; 
+            }
         }
         .writer{
 

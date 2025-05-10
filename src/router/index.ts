@@ -25,7 +25,7 @@ export default createRouter({
       component: () => import('../views/Home/user/index.vue'),
     },
     {
-      path: '/home/blogdetail/uid', 
+      path: '/home/blogdetail/:blog_id', 
       name: '博客详情', 
       component: () => import('../views/Home/blogdetail/index.vue'),
     },
