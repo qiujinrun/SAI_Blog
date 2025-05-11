@@ -8,24 +8,22 @@
             <div class="user">
                 <el-avatar :size="50" :src="context.user_icon" class="evatar"/>
                 <router-link :to="`/home/user/${context.uid}`" class="name">
-                    <strong>{{ context.user_name }}</strong>
+                    <strong >{{ context.user_name }}</strong>
                 </router-link>
             </div>
-            <div class="content">
-                {{ context.content }}
-            </div>
+            <div class="content" v-html="context.content"></div>
         </div>
     </div>
 </template>
 <script setup lang="ts">
-import { ref, onMounted, watch,watchEffect } from 'vue'
+import { ref, onMounted,watchEffect } from 'vue'
 import Header from '@/components/Home/header.vue'
 import { blogdetail } from '@/api/Home/blogdetail'
 import type { BlogDetailResponse } from '@/api/Type/Home/type'
 import { ElMessage } from 'element-plus'
 import { useRoute } from 'vue-router'
 const route = useRoute()
-const blog_id = ref(route.params.blog_id)
+const blog_id = route.params.blog_id
 
 
 const Menudata = ref({
@@ -48,8 +46,8 @@ const context = ref<BlogDetailResponse>({
     comment: []
 })
 const Getblogdetail = async () => {
-    const res = await blogdetail(blog_id.value)
-    console.log(res);
+    const res = await blogdetail(blog_id)
+    // console.log(res);
     if (res.status_code === 1) {
         context.value = res;
     } else {
@@ -61,17 +59,18 @@ onMounted(async () => {
     Getblogdetail();
 })
 // 监听路由参数变化，重新获取博客详情
-watch(
-    () => route.params.blog_id,
-    (newId) => {
-        blog_id.value = newId;
-        if (newId) Getblogdetail()
-    }
-)
+// watch(
+//     () => route.params.blog_id,
+//     (newId) => {
+//         blog_id.value = newId;
+//         if (newId) Getblogdetail()
+//     }
+// )
 // 自动监听 route.params.blog_id 的变化
 watchEffect(() => {
     const blog_Id = route.params.blog_id 
     if (blog_Id) {
+        console.log(blog_Id)
         Getblogdetail()
     }
 })

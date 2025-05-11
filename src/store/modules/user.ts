@@ -4,13 +4,16 @@ export const useUserStore = defineStore('user', {
   state: () => {
     return { 
         userInfo: {
-            username: '',
-            password: '',
-            token: ''
+          ID: 0,
+          name: '',
+          account: '',
         }
      }
   },
   actions: {
-    
+    setUserInfo(userInfo:any) {
+      this.userInfo = userInfo;
+      // console.log(this.userInfo);
+    }
   }
 })

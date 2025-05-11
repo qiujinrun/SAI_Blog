@@ -3,7 +3,7 @@
     <el-col :span="1">
       <div class="grid-content ep-bg-purple" />
     </el-col>
-    <el-col :span="20">
+    <el-col :span="18" >
       <!-- 遍历菜单 -->
       <el-menu
         :default-active="activeIndex"
@@ -30,10 +30,10 @@
     <!-- <el-col :span="1">
       <div class="grid-content ep-bg-purple" />
     </el-col> -->
-    <el-col :span="2">
-      <el-icon :size="23" color="black">
+    <el-col :span="4" class="button">
+      <!-- <el-icon :size="23" color="black">
         <Bell />
-      </el-icon>
+      </el-icon> -->
       <el-button
         v-if="!isEditorPage"
         type="success"
@@ -42,12 +42,34 @@
         撰写博客
       </el-button>
       <div class="demo-basic--circle">
-        <div class="block">
+        <!-- <div class="block">
           <el-avatar
             :size="50"
             src="https://th.bing.com/th/id/OIP.7KH4CcveY3sV0Bv_zPyJVgAAAA?rs=1&pid=ImgDetMain"
           />
-        </div>
+        </div> -->
+        <el-dropdown>
+          <span class="el-dropdown-link">
+            <div class="block">
+              <el-avatar 
+                :size="50"
+                src="https://th.bing.com/th/id/OIP.7KH4CcveY3sV0Bv_zPyJVgAAAA?rs=1&pid=ImgDetMain"
+              />
+            </div>
+            <!-- <el-icon class="el-icon--right">
+              <arrow-down />
+            </el-icon> -->
+          </span>
+          <template #dropdown>
+            <el-dropdown-menu>
+              <el-dropdown-item>{{ userStore.userInfo.name }}</el-dropdown-item>
+              <el-dropdown-item>Action 2</el-dropdown-item>
+              <el-dropdown-item>Action 3</el-dropdown-item>
+              <el-dropdown-item disabled>Action 4</el-dropdown-item>
+              <el-dropdown-item divided>Action 5</el-dropdown-item>
+            </el-dropdown-menu>
+          </template>
+        </el-dropdown>
       </div>
     </el-col>
     <el-col :span="1">
@@ -60,11 +82,11 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-
+import { useUserStore } from '@/store/modules/user'
+const userStore = useUserStore()
 // // 设置路由高亮
 const route = useRoute()
 const activeIndex = ref<string>(route.path)
-console.log(route)
 // 退出登录
 const router = useRouter()
 const goToLogin = () => {
@@ -104,7 +126,7 @@ const editor = () => {
 @use 'element-plus/theme-chalk/src/common/var.scss' as *;
 .main {
   background-color: #ffffff;
-  border-bottom: solid 1px var(--el-menu-border-color);
+  // border-bottom: solid 1px var(--el-menu-border-color);
   margin: 0 !important;
   position: fixed;
   //为了显示在页面的顶部
@@ -116,6 +138,11 @@ const editor = () => {
   border-bottom: solid 1px var(--el-menu-border-color);
   margin: 0 !important;
   padding: 0 20px;
+  .button{
+   display: flex;
+   align-items: center;
+   justify-content: center;
+  }
 }
 // .el-menu--horizontal > .el-menu-item:nth-child(2) {
 //   margin-right: auto;
@@ -144,6 +171,9 @@ const editor = () => {
 
 .demo-basic--circle {
   margin-left: 20px;
+  width: 40px;
+  justify-content: center;
+  // margin-top: 10px;
 }
 .el-sub-menu .el-sub-menu__icon-arrow {
   top: 0;

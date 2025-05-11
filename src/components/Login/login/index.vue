@@ -36,6 +36,10 @@ import { reactive } from 'vue'
 import { useRouter } from 'vue-router'
 import { userlogin } from '@/api/Login'
 import { ElMessage } from 'element-plus'
+import { useUserStore } from '@/store/modules/user'
+
+//获取仓库对象
+const userStore = useUserStore()
 const router = useRouter()
 let User = reactive({ account: '', password: '', })
 const login = async () => {
@@ -43,9 +47,11 @@ const login = async () => {
     let res = await userlogin(User);
     console.log(res);
     if (res && res.status_code === 1) {
-      console.log("登录成功", res);
       ElMessage.success(res.status_msg);
       localStorage.setItem('token', res.token)
+      // 存储用户信息到仓库中
+      userStore.setUserInfo(res.user)
+
       router.push('/home')
     }else if (res && res.status_code === 0) {
       ElMessage.error(res.status_msg);
