@@ -32,12 +32,12 @@
     </div>
 </template>
 <script setup lang="ts">
-import { ref,onMounted,watch } from 'vue';
-import { getbloglist,getblogcount } from '@/api/Home';
+import { ref, onMounted, watch } from 'vue';
+import { getbloglist, getblogcount } from '@/api/Home';
 import type { Blog } from '@/api/Type/Home/type';
 import { ElMessage } from 'element-plus';
 let pageNo = ref<string>('1')
-let key = ref<string>('') 
+let key = ref<string>('')
 let totalmsg = ref<number>(90)
 const bloglist = ref({} as Blog[]);
 const blogcount = ref<number>(0);
@@ -46,78 +46,86 @@ const blogcount = ref<number>(0);
 
 
 watch(pageNo, (newVal) => {
-  fetchBlogList();
+    fetchBlogList();
 });
 const fetchBlogList = async () => {
-  const res = await getbloglist(key.value, pageNo.value);
-  if (res.status_code === 1) {
-    bloglist.value = res.Blogs;
-    totalmsg.value = res.Blogs.length;
-  } else {
-    ElMessage.error('登录请求失败，请稍后再试'); 
-  }
+    const res = await getbloglist(key.value, pageNo.value);
+    if (res.status_code === 1) {
+        bloglist.value = res.Blogs;
+        totalmsg.value = res.Blogs.length;
+    } else {
+        ElMessage.error('登录请求失败，请稍后再试');
+    }
 };
 const fetchBlogCount = async () => {
-  const res = await getblogcount();
-  if (res.status_code === 1) {
-    blogcount.value = res.status_msg;
-  } else {
-    ElMessage.error('登录请求失败，请稍后再试');
-  }
+    const res = await getblogcount();
+    if (res.status_code === 1) {
+        blogcount.value = res.status_msg;
+    } else {
+        ElMessage.error('登录请求失败，请稍后再试');
+    }
 }
 onMounted(async () => {
     fetchBlogList();
     fetchBlogCount();
 })
 </script>
-<style scoped lang="scss"> 
-.el-header{
+<style scoped lang="scss">
+.el-header {
     margin-bottom: -10px;
     margin-left: 200px;
     text-align: left;
 }
-.el-container{
+
+.el-container {
     // margin-left: 180px;
     background-color: white;
     display: block;
-    .el-model{
- 
+
+    .el-model {
+
         text-align: left;
         border-bottom: 0.1px solid #ccc;
         margin-top: 5px;
         margin-bottom: 5px;
         margin-left: 10px;
         margin-right: 10px;
-        .title{
+
+        .title {
             text-align: left;
             font-size: 35px;
             font-weight: bold;
             margin-bottom: 5px;
             margin-left: 15px;
-            .titledetail{
-                color: black; 
+
+            .titledetail {
+                color: black;
             }
         }
-        .writer{
+
+        .writer {
 
             font-size: 16px;
             margin-right: 10px;
             margin-left: 15px;
-            .username{
+
+            .username {
                 color: green;
                 font-size: 20px;
             }
         }
-       .likes{
+
+        .likes {
             font-size: 16px;
             margin-right: 10px;
             margin-left: 15px;
-        } 
-        .comments{
+        }
+
+        .comments {
             font-size: 16px;
-            margin-right: 10px; 
+            margin-right: 10px;
             margin-left: 15px;
         }
-       }
     }
+}
 </style>
