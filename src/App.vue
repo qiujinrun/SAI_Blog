@@ -14,6 +14,9 @@ body {
   display: block;
   background-color: #f7f7f7;
 }
+body.blog-detail {
+  background-color: white !important;
+}
 .logo {
   height: 6em;
   padding: 1.5em;
