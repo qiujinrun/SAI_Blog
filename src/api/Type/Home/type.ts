@@ -54,7 +54,7 @@ export interface UnFollowResponse {
 }
 
 
-//博客详情
+//博客详情,包括评论的列表
 export interface BlogDetailResponse {
     status_code: number;
     status_msg: string;
@@ -66,5 +66,26 @@ export interface BlogDetailResponse {
     content: string;
     likes: number;
     comments: number;
-    comment: Comment[];
+    comment_info: Comment_info[];
+}
+export interface Comment_info {
+    Comment: Comment;
+    user: user;
+}
+export interface user {
+    ID:number;
+    name:string;
+    ico_url:string; 
+    accoutnt:string;
+}
+
+//点赞
+export interface LikeResponse {
+    status_code: number;
+    status_msg: string; 
+}
+//取消点赞
+export interface UnLikeResponse {
+    status_code: number;
+    status_msg: string;
 }
