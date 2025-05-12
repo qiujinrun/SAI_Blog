@@ -33,7 +33,7 @@
             <template #footer>Footer content</template>
         </el-card>
         <div class="userbloglist">
-            <div class="el-header">博客列表</div>
+            <div class="el-header">{{userinfo.name}}的博客</div>
             <div class="el-container">
                 <div v-for="item in userbloglist" :key="item.blog_id" class="el-model">
                     <!-- <div class="title">{{ item.title }}</div> -->
@@ -172,6 +172,13 @@ onMounted(() => {
     }
 
     .userbloglist {
+        margin-top: 30px;
+        .el-header {
+            font-size: 25px;
+            font-weight: bold;
+            // margin-bottom: 10px;
+            text-align: left;
+        }
         .el-container {
             // margin-left: 180px;
             background-color: white;
