@@ -15,10 +15,6 @@
         <el-menu-item>
           <p class="img-caption">SAI_BLOG</p>
         </el-menu-item>
-        <!-- <el-menu-item>
-          <el-icon><MagicStick /></el-icon>
-          {{ Menudata.title }}
-        </el-menu-item> -->
         <template v-for="item in Menudata.menu" :key="item.index">
           <el-menu-item :index="item.index">
             <!-- <el-icon><Folder /></el-icon> -->
@@ -53,7 +49,7 @@
             <div class="block">
               <el-avatar 
                 :size="50"
-                src="https://th.bing.com/th/id/OIP.7KH4CcveY3sV0Bv_zPyJVgAAAA?rs=1&pid=ImgDetMain"
+                :src="avater_url"
               />
             </div>
             <!-- <el-icon class="el-icon--right">
@@ -84,7 +80,7 @@ import { ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useUserStore } from '@/store/modules/user'
 const userStore = useUserStore()
-// // 设置路由高亮
+const avater_url = userStore.userInfo.ico_url
 const route = useRoute()
 const activeIndex = ref<string>(route.path)
 // 退出登录
@@ -101,7 +97,6 @@ interface MenuItem {
   label: string
 }
 interface PageData {
-  title: string
   menu: MenuItem[]
 }
 defineProps<{
