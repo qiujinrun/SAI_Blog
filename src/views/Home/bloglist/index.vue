@@ -1,6 +1,6 @@
 <template lang="">
     <div>
-        <div class="el-header">博客列表</div>
+        <div class="el-header">博客</div>
         <div class="el-container"> 
             <div v-for="item in bloglist" :key="item.blog_id" class="el-model">
                 <!-- <div class="title">{{ item.title }}</div> -->
@@ -73,8 +73,10 @@ onMounted(async () => {
 <style scoped lang="scss">
 .el-header {
     margin-bottom: -10px;
-    margin-left: 200px;
     text-align: left;
+    font-size: 30px;
+    font-weight: bold;
+
 }
 
 .el-container {
