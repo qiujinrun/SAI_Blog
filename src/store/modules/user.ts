@@ -6,6 +6,7 @@ export const useUserStore = defineStore('user', {
         userInfo: {
           ID: 0,
           name: '',
+          ico_url: '',
           account: '',
         }
      }
