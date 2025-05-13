@@ -158,16 +158,6 @@ const editor = () => {
   margin-left: 20px;
   width: 40px;
   justify-content: center;
-  .el-dropdown-menu{
-   width: 200px;
-    .el-dropdown-menu__item{
-     font-size: 20px;
-     color: #333;
-    }
-    ::v-deep(el-dropdown-menu) {
-      background-color: #333;
-    }
-  }
 }
 .el-sub-menu .el-sub-menu__icon-arrow {
   top: 0;
