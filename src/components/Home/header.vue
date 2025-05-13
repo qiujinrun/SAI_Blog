@@ -49,10 +49,8 @@
           <template #dropdown>
             <el-dropdown-menu class="el-dropdown-menu">
               <el-dropdown-item >你好，{{ userStore.userInfo.name }}</el-dropdown-item>
-              <el-dropdown-item divided>我的博客</el-dropdown-item>
-              <el-dropdown-item>个人设置</el-dropdown-item>
-              <el-dropdown-item disabled>Action 4</el-dropdown-item>
-              <el-dropdown-item divided>Action 5</el-dropdown-item>
+              <el-dropdown-item @click="gotoBlog"  divided>我的博客</el-dropdown-item>
+              <el-dropdown-item @click="gotoSetting">个人设置</el-dropdown-item>
             </el-dropdown-menu>
           </template>
         </el-dropdown>
@@ -73,6 +71,15 @@ const userStore = useUserStore()
 const avater_url = userStore.userInfo.ico_url
 const route = useRoute()
 const activeIndex = ref<string>(route.path)
+
+// 跳转到博客
+const gotoBlog = () => {
+  router.push('/self/blog')
+}
+// 跳转到设置
+const gotoSetting = () => {
+  router.push('/self/information') 
+}
 // 退出登录
 const router = useRouter()
 const goToLogin = () => {
@@ -162,5 +169,15 @@ const editor = () => {
 .el-sub-menu .el-sub-menu__icon-arrow {
   top: 0;
   margin-top: 0;
+}
+/* 穿透样式作用域 */
+:v-deep(.el-dropdown-menu) {
+  font-size: 22px;   // 修改字体大小
+  min-width: 160px;  // 修改最小宽度（默认是 150px）
+  padding: 10px 0;   // 调整上下内边距
+}
+
+:v-deep(.el-dropdown-menu__item) {
+  padding: 10px 20px; // 修改每一项的内边距
 }
 </style>

@@ -15,12 +15,6 @@
             @select="handleSelect"
             router
           >
-            <!-- <el-sub-menu index="1">
-              <template #title>
-                <span>我的账户</span>
-              </template>
-              <el-menu-item index="/branch/member-info/passwordsetting">密码设置</el-menu-item>
-            </el-sub-menu> -->
             <el-menu-item index="/home/blog">博客论坛</el-menu-item>
             <el-menu-item index="/home/subscribe">关注订阅</el-menu-item>
           </el-menu>

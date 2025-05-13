@@ -29,6 +29,34 @@ export default createRouter({
       name: '博客详情', 
       component: () => import('../views/Home/blogdetail/index.vue'),
     },
+    // {
+    //   path: '/self/infomation', 
+    //   name: '个人设置', 
+    //   component: () => import('../views/Home/self/Info/index.vue'),
+    // },
+    // {
+    //   path: '/self/blog', 
+    //   name: '个人博客', 
+    //   component: () => import('../views/Home/self/Info/index.vue'),
+    // },
+    {
+      path: '/home/self', 
+      name: '个人主页', 
+      component: () => import('../views/Home/self/index.vue'),
+      redirect: '/home/self/infomation',
+      children:[
+        {
+          path: '/self/information',
+          name: '个人设置',
+          component: () => import('../views/Home/self/Info/index.vue')
+        },
+        {
+          path: '/self/blog',
+          name: '个人博客',
+          component: () => import('../views/Home/self/Blog/index.vue') 
+        }  
+      ]
+    },
     {
       path: '/home',
       name: 'Home',
