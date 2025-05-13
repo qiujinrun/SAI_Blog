@@ -17,19 +17,12 @@
         </el-menu-item>
         <template v-for="item in Menudata.menu" :key="item.index">
           <el-menu-item :index="item.index">
-            <!-- <el-icon><Folder /></el-icon> -->
             {{ item.label }}
           </el-menu-item>
         </template>
       </el-menu>
     </el-col>
-    <!-- <el-col :span="1">
-      <div class="grid-content ep-bg-purple" />
-    </el-col> -->
     <el-col :span="4" class="button">
-      <!-- <el-icon :size="23" color="black">
-        <Bell />
-      </el-icon> -->
       <el-button
         v-if="!isEditorPage"
         type="success"
@@ -52,15 +45,12 @@
                 :src="avater_url"
               />
             </div>
-            <!-- <el-icon class="el-icon--right">
-              <arrow-down />
-            </el-icon> -->
           </span>
           <template #dropdown>
-            <el-dropdown-menu>
-              <el-dropdown-item>{{ userStore.userInfo.name }}</el-dropdown-item>
-              <el-dropdown-item>Action 2</el-dropdown-item>
-              <el-dropdown-item>Action 3</el-dropdown-item>
+            <el-dropdown-menu class="el-dropdown-menu">
+              <el-dropdown-item >你好，{{ userStore.userInfo.name }}</el-dropdown-item>
+              <el-dropdown-item divided>我的博客</el-dropdown-item>
+              <el-dropdown-item>个人设置</el-dropdown-item>
               <el-dropdown-item disabled>Action 4</el-dropdown-item>
               <el-dropdown-item divided>Action 5</el-dropdown-item>
             </el-dropdown-menu>
@@ -168,7 +158,16 @@ const editor = () => {
   margin-left: 20px;
   width: 40px;
   justify-content: center;
-  // margin-top: 10px;
+  .el-dropdown-menu{
+   width: 200px;
+    .el-dropdown-menu__item{
+     font-size: 20px;
+     color: #333;
+    }
+    ::v-deep(el-dropdown-menu) {
+      background-color: #333;
+    }
+  }
 }
 .el-sub-menu .el-sub-menu__icon-arrow {
   top: 0;

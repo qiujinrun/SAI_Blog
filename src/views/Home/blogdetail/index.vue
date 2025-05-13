@@ -66,7 +66,10 @@
                     <el-avatar :size="40" :src="item.user.ico_url" class="comment-avater" />
                     <div class="comment-content">
                         <div class="comment-header">
-                            <div class="username">{{ item.user.name }}</div>
+                            <!-- <div class="username">{{ item.user.name }}</div> -->
+                            <router-link :to="`/home/user/${item.user.ID}`" class="username">
+                                <strong>{{ item.user.name }}</strong>
+                            </router-link>
                             <span class="dot">•</span>
                             <div class="comment-detail">{{ item.Comment.comment }}</div>
                         </div>
@@ -230,7 +233,7 @@ watchEffect(() => {
         }
 
         .content {
-            font-size: 22px;
+            font-size: 25px;
             line-height: 40px;
             text-align: left;
             margin-top: 20px;
@@ -269,14 +272,20 @@ watchEffect(() => {
 
         .el-commentcontainer {
             margin-top: 20px;
+            margin-left: 20px;
+            margin-bottom: 20px;
             display: flex;
             flex-direction: column;
             gap: 12px;
+
 
             .el-comment-item {
                 display: flex;
                 align-items: flex-start;
                 gap: 10px;
+                margin-right: 20px;
+                padding-bottom: 15px;
+                border-bottom: 1px solid #e0e0e0;
 
                 .comment-avater{
                     width: 40px;
@@ -289,6 +298,7 @@ watchEffect(() => {
                     display: flex;
                     flex-direction: column;
                     flex: 1;
+                    text-align: left;
 
                    .comment-header {
                         font-size: 14px;
@@ -296,17 +306,20 @@ watchEffect(() => {
                         color: #333;  
 
                        .username {
+                            font-size: 20px;
+                            // display: block;
                             font-weight: bold;
                             color: green;
                         } 
                        
                       .dot {
+                            display: block;
                             margin: 0 5px;
                             color: #333;
                         } 
 
                       .comment-detail {
-                            font-size: 16px;
+                            font-size: 22px;
                             color: #666;
                       }
                     }

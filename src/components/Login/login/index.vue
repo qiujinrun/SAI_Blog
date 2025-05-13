@@ -50,10 +50,14 @@ const login = async () => {
       ElMessage.success(res.status_msg);
       localStorage.setItem('token', res.token)
       // 存储用户信息到仓库中
-      userStore.setUserInfo(res.user)
-
+      if (userStore.userInfo) {
+        userStore.clearUserInfo()
+        userStore.setUserInfo(res.user)
+      } else {
+        userStore.setUserInfo(res.user)
+      }
       router.push('/home')
-    }else if (res && res.status_code === 0) {
+    } else if (res && res.status_code === 0) {
       ElMessage.error(res.status_msg);
     } else {
       console.log("注册失败", res);
