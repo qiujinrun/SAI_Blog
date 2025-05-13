@@ -60,6 +60,7 @@
     </div>
 </template>
 <script setup lang="ts">
+const VITE_API_URL = import.meta.env.VITE_API_URL
 import { ref, onMounted, watch } from 'vue'
 import type { User } from '@/api/Type/Home/type'
 import Header from '@/components/Home/header.vue'
@@ -90,6 +91,8 @@ const getuserdetail = async () => {
     console.log(res)
     if (res.status_code === 1) {
         userinfo.value = res.user;
+        userinfo.value.ico_url = VITE_API_URL  + userinfo.value.ico_url;
+        console.log(userinfo.value.ico_url)
     } else {
         ElMessage.error(res.status_msg)
     }
