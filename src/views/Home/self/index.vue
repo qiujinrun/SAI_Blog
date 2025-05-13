@@ -37,7 +37,7 @@
     menu: [
   //   {  label: '首页' }
       { index: '/home', label: '首页' },
-      { label: '个人主页'}
+      { index: '',label: '个人主页'}
       // { index: '/branch/personnel', label: '人员管理' }
     ]
   })

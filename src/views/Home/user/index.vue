@@ -64,6 +64,8 @@ const VITE_API_URL = import.meta.env.VITE_API_URL
 import { ref, onMounted, watch } from 'vue'
 import type { User } from '@/api/Type/Home/type'
 import Header from '@/components/Home/header.vue'
+//避免打包时报错
+console.log(Header)
 import { userdetail, follow, unfollow, getuserbloglist } from '@/api/Home/user'
 import { useRoute } from 'vue-router'
 // import type { AxiosResponse } from 'axios';
@@ -83,9 +85,10 @@ const Menudata = ref({
     //   title: '首页',
     menu: [
         { index: '/home', label: '首页' },
-        { label: '用户详情' }
+        { index:'', label: '用户详情' }
     ]
 })
+console.log(Menudata)
 const getuserdetail = async () => {
     const res = await userdetail(uid);
     console.log(res)
@@ -102,6 +105,7 @@ watch(
     () => userinfo.value.is_follow,
     (newPath) => {
         getuserdetail()
+        console.log(newPath)
     }
 )
 //关注
@@ -115,6 +119,7 @@ const subscribe = async () => {
         ElMessage.error(res.status_msg)
     }
 }
+console.log(subscribe)
 //取消关注
 const unsubscribe = async () => {
     const res = await unfollow(uid);
@@ -125,6 +130,7 @@ const unsubscribe = async () => {
         ElMessage.error(res.status_msg)
     }
 }
+console.log(unsubscribe)
 //获取用户的博客列表
 const Getuserbloglist = async () => {
     const res = await getuserbloglist(uid);

@@ -21,19 +21,55 @@
             <template #footer>Footer content</template>
         </el-card>
     </div>
+    <div class="basic-info">
+        <div class="title">基本信息</div>
+        <div class="content">
+            <div class="name">
+                <span>姓名：</span>
+                <span>{{userInfo.name}}</span>
+            </div>
+            <div class="account">
+                <span>账号：</span>
+                <span>{{userInfo.account}}</span>
+            </div>
+            <div class="account">
+                <span>密码：</span>
+                <span></span>
+            </div>
+            <div class="avater">
+                <div>个人头像：</div>
+                <el-avatar class="el-avater" :size="100" :src="userinfo.ico_url" />
+
+                <el-button class="el-btn" type="primary" @click="uploadAvatar">上传头像</el-button>
+            </div>
+            <div class="mail">
+                <div>邮箱：</div>
+                <el-input class="mailinfo" v-model="userinfo.email" placeholder="请输入邮箱"></el-input>
+                <el-button class="el-btn" type="primary" @click="UpdateMail">修改邮箱</el-button>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script setup>
+const VITE_API_URL = import.meta.env.VITE_API_URL
 import { ref,onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
 import { useUserStore } from '@/store/modules/user'
-import { userdetail, follow, unfollow, getuserbloglist } from '@/api/Home/user'
+import { userdetail } from '@/api/Home/user'
+import { updateMail } from "@/api/Self"
 const userStore = useUserStore()
+const userInfo = userStore.userInfo;
 const uid = userStore.userInfo.ID;
-
 //获取我的信息
-const userinfo = ref({})
+const userinfo = ref({
+    name: '',
+    account: '',
+    ico_url: '',
+    email: ''
+})
+console.log(userinfo)
 const getuserdetail = async () => {
     const res = await userdetail(uid);
     console.log(res)
@@ -45,13 +81,23 @@ const getuserdetail = async () => {
         ElMessage.error(res.status_msg)
     }
 }
+//修改邮箱
+const UpdateMail = async () => {
+    const res = await updateMail(userinfo.value.email)
+    if (res.status_code === 1) {
+        ElMessage.success(res.status_msg)
+    } else {
+        ElMessage.error(res.status_msg)
+    }
+}
 onMounted(() => {
     getuserdetail() 
 })
 </script>
 <style scoped lang="scss">
 .main-content {
-    margin-top: 30px;
+    margin-top: 40px;
+    margin-left: -10px;
 
     .card-header {
         font-size: 18px;
@@ -83,5 +129,63 @@ onMounted(() => {
             height: 50px;
         }
     }
+}
+.basic-info {
+    // display: flex;
+    text-align: left;
+    margin-top: 40px;
+    margin-left: -10px;
+    font-size: 20px; 
+    background-color: white;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 1000px;
+    .title {
+        font-size: 24px;
+        margin-bottom: 20px;
+        font-weight: bold;
+    }
+    .content {
+        margin-left: 20px; 
+        margin-bottom: 20px;
+        .name {
+        margin-bottom: 10px;
+        font-size: 20px;
+        } 
+        .account {
+        margin-bottom: 10px;
+        font-size: 20px; 
+        } 
+        .avater {
+            display: flex;
+            margin-bottom: 10px;
+            font-size: 20px;
+            .el-avater {
+                display: block;
+                margin-left: 10px;
+            }
+            .el-btn{
+                margin-left: 30px;
+            }
+        } 
+       .mail {
+            margin-bottom: 10px;
+            font-size: 20px; 
+           .mailinfo {
+            //   margin-left: 10px;
+              margin-top: 10px; 
+              width: 500px;
+            }
+            .el-btn{
+                margin-left: 30px;
+                margin-top: 10px; 
+
+            } 
+          
+        }
+    }
+
 }
 </style>

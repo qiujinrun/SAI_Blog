@@ -18,12 +18,12 @@
   </template>
   
   <script setup lang="ts">
-  import { ref, watch } from 'vue'
-  import { useRouter, useRoute } from 'vue-router'
+  import { ref} from 'vue'
+  import { useRouter } from 'vue-router'
   import login from '@/components/Login/login/index.vue'
   import register from '@/components/Login/register/index.vue'
   const router = useRouter()
-  const route = useRoute()
+  // const route = useRoute()
   
   // 用于顶部三种模式切换（可根据需求完善）
   const mode = ref<'login'|'register'>('login')
@@ -35,11 +35,11 @@
   function onTabClick(tabPane: any) {
     router.push(`/Login/${tabPane.name}`)
   }
-  
+  console.log(onTabClick)
   // Keep tab in sync when URL changes
-  watch(() => route.path, p => {
-    tab.value = p.endsWith('register') ? 'register' : 'login'
-  })
+  // watch(() => route.path, p => {
+  //   tab.value = p.endsWith('register') ? 'register' : 'login'
+  // })
   </script>
   
   <style scoped>

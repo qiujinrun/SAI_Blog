@@ -47,6 +47,7 @@ const blogcount = ref<number>(0);
 
 watch(pageNo, (newVal) => {
     fetchBlogList();
+    console.log(newVal)
 });
 const fetchBlogList = async () => {
     const res = await getbloglist(key.value, pageNo.value);

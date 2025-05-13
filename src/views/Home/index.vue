@@ -37,7 +37,6 @@ const Menudata = ref({
   menu: [
 //   {  label: '首页' }
     { index: '/home', label: '首页' },
-    // { index: '/branch/personnel', label: '人员管理' }
   ]
 })
 import { useRouter } from 'vue-router'

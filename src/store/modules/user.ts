@@ -20,6 +20,7 @@
 // })
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
+const VITE_API_URL = import.meta.env.VITE_API_URL
 
 export const useUserStore = defineStore('user', () => {
   const userInfo = ref({
@@ -31,6 +32,7 @@ export const useUserStore = defineStore('user', () => {
 
   const setUserInfo = (info: typeof userInfo.value) => {
     userInfo.value = info
+    userInfo.value.ico_url = VITE_API_URL + userInfo.value.ico_url
   }
 
   const clearUserInfo = () => {

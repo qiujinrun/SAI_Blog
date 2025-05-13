@@ -49,7 +49,7 @@ const Menudata = ref({
   menu: [
 //   {  label: '首页' }
     { index: '/home', label: '首页' },
-    {  label: '撰写博客' }
+    { index: '', label: '撰写博客' }
   ]
 })
 

@@ -63,7 +63,7 @@
 
             <div class="el-commentcontainer">
                 <div class="el-comment-item" v-for="item in context.comment_info" :key="item.Comment.blog_id" >
-                    <el-avatar :size="40" :src="item.user.ico_url" class="comment-avater" />
+                    <el-avatar :size="40" :src="VITE_API_URL + item.user.ico_url" class="comment-avater" />
                     <div class="comment-content">
                         <div class="comment-header">
                             <!-- <div class="username">{{ item.user.name }}</div> -->
@@ -80,9 +80,10 @@
     </div>
 </template>
 <script setup lang="ts">
+const VITE_API_URL = import.meta.env.VITE_API_URL
 import { ref, onMounted, watchEffect, onUnmounted } from 'vue'
 import Header from '@/components/Home/header.vue'
-import { blogdetail,givelike,cancellike } from '@/api/Home/blogdetail'
+import { blogdetail,givelike } from '@/api/Home/blogdetail'
 import { postcomment } from '@/api/Comment'
 import type { BlogDetailResponse } from '@/api/Type/Home/type'
 import { ElMessage } from 'element-plus'
@@ -100,7 +101,7 @@ const avater_url = userStore.userInfo.ico_url
 const Menudata = ref({
     menu: [
         { index: '/home', label: '首页' },
-        { label: '博客详情' }
+        { index:'' , label: '博客详情' }
     ]
 })
 //博客详情
@@ -133,6 +134,7 @@ const Getblogdetail = async () => {
     // console.log(res);
     if (res.status_code === 1) {
         context.value = res;
+        context.value.user_icon = VITE_API_URL + context.value.user_icon;
     } else {
         ElMessage.error('请求失败，请稍后再试');
         console.log(res);
@@ -159,15 +161,15 @@ const Likes = async () => {
    }
 }
 //取消点赞
-const Cancellike = async () => {
-    const res = await cancellike(blog_id)
-    if (res.status_code === 1) {
-     ElMessage.success('取消点赞成功');
-     Getblogdetail();
-    } else {
-     ElMessage.error('取消点赞失败，请稍后再试');
-    }
- }
+// const Cancellike = async () => {
+//     const res = await cancellike(blog_id)
+//     if (res.status_code === 1) {
+//      ElMessage.success('取消点赞成功');
+//      Getblogdetail();
+//     } else {
+//      ElMessage.error('取消点赞失败，请稍后再试');
+//     }
+//  }
 onMounted(async () => {
     document.body.classList.add('blog-detail')
     window.scrollTo({ top: 0, behavior: 'smooth' })
