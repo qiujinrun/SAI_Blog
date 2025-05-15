@@ -51,9 +51,15 @@ const editorConfig = {
       fieldName: 'file', // 上传字段名
       // 自定义上传成功后返回的图片 URL（如果后端结构和默认不一样）
       customInsert(res, insertFn) {
-        // res 是服务端返回的结果
-        const url = res.data?.url || res.data?.[0]
-        insertFn(url)
+        const baseUrl = 'http://1.95.40.68:8081'
+        const url = res.status_msg || res[0]
+        const fullurl = baseUrl + url
+        if (res.status_code === 1) {
+          insertFn(fullurl)
+          ElMessage.success('上传成功') 
+        } else {
+          ElMessage.error('上传失败') 
+        }
       },
       headers: {
         // 如果需要 token 认证
