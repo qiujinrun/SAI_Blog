@@ -122,12 +122,6 @@ const handleFileChange = async (event) => {
         ElMessage.error(res.status_msg)
     }
 }
-watch(
-    () => userinfo.ico_url,
-    (newValue) => {
-        getuserdetail()
-    }
-)
 onMounted(() => {
     getuserdetail()
 })

@@ -39,11 +39,40 @@ const router = useRouter()
 // 编辑器实例，必须用 shallowRef
 const editorRef = shallowRef()
 const toolbarConfig = {}
-const editorConfig = { placeholder: '请输入内容...' }
 const editortitle = ref('')
 // 内容 HTML
 const valueHtml = ref('')
 const mode = 'default' // 或 'simple' 取决于你想要的样式
+const editorConfig = {
+  placeholder: '请输入内容...',
+  MENU_CONF: {
+    uploadImage: {
+      server: '/api/blog/content-images-load', // 你的上传接口地址
+      fieldName: 'file', // 上传字段名
+      // 自定义上传成功后返回的图片 URL（如果后端结构和默认不一样）
+      customInsert(res, insertFn) {
+        // res 是服务端返回的结果
+        const url = res.data?.url || res.data?.[0]
+        insertFn(url)
+      },
+      headers: {
+        // 如果需要 token 认证
+        Authorization: `${localStorage.getItem('token')}`
+      },
+      // 限制类型、大小等
+      allowedFileTypes: ['image/*'],
+      maxFileSize: 2 * 1024 * 1024, // 2MB
+    }
+  }
+}
+watch(
+  () => editorConfig.value,
+  (newValue) => {
+    console.log('标题变化：', newValue)
+  } 
+)
+
+
 const Menudata = ref({
 
   menu: [
