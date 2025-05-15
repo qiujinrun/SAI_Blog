@@ -34,7 +34,18 @@
             </div>
             <div class="account">
                 <span>密码：</span>
-                <span></span>
+                <el-button type="primary" @click="SendResetMail">修改密码</el-button>
+                <!-- <el-dialog v-model="dialogVisible" title="修改密码">
+                    <el-form :model="form" label-width="100px">
+                        <el-form-item label="新密码">
+                            <el-input v-model="form.new_password" type="password" placeholder="请输入新密码"></el-input>
+                        </el-form-item>
+                    </el-form>
+                    <template #footer>
+                      <el-button @click="dialogVisible = false">关闭</el-button>
+                      <el-button type="primary" @click="updatedPassword">提交</el-button>
+                    </template>
+                </el-dialog> -->                    
             </div>
             <div class="avater">
                 <div>个人头像：</div>
@@ -64,11 +75,26 @@ import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
 import { useUserStore } from '@/store/modules/user'
 import { userdetail } from '@/api/Home/user'
-import { updateMail, uploadAvatar } from "@/api/Self"
+import { updateMail, uploadAvatar,sendResetMail } from "@/api/Self"
 import axios from 'axios'
+
+const dialogVisible = ref(false)
 const userStore = useUserStore()
 const userInfo = userStore.userInfo;
 const uid = userStore.userInfo.ID;
+// const form = ref({
+//     // old_password: '',
+//     new_password: '' 
+// })
+//修改密码跳转页面
+const SendResetMail = async () => {
+    const res = await sendResetMail()
+    if (res.status_code === 1) {
+        ElMessage.success(res.status_msg) 
+    } else {
+        ElMessage.error(res.status_msg) 
+    }
+}
 //获取我的信息
 const userinfo = ref({
     name: '',

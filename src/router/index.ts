@@ -29,16 +29,11 @@ export default createRouter({
       name: '博客详情', 
       component: () => import('../views/Home/blogdetail/index.vue'),
     },
-    // {
-    //   path: '/self/infomation', 
-    //   name: '个人设置', 
-    //   component: () => import('../views/Home/self/Info/index.vue'),
-    // },
-    // {
-    //   path: '/self/blog', 
-    //   name: '个人博客', 
-    //   component: () => import('../views/Home/self/Info/index.vue'),
-    // },
+    {
+      path: '/reset',
+      name: '重置密码',
+      component: () => import('../views/Home/self/Info/Upassword/index.vue'), 
+    },
     {
       path: '/home/self', 
       name: '个人主页', 
