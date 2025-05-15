@@ -34,6 +34,9 @@ export const useUserStore = defineStore('user', () => {
     userInfo.value = info
     userInfo.value.ico_url = VITE_API_URL + userInfo.value.ico_url
   }
+  const setAvater = (url: string) => {
+    userInfo.value.ico_url = url
+  }
 
   const clearUserInfo = () => {
     userInfo.value = {

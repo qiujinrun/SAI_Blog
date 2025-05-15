@@ -42,7 +42,7 @@
             <div class="block">
               <el-avatar 
                 :size="50"
-                :src="avater_url"
+                :src="userStore.userInfo.ico_url"
               />
             </div>
           </span>

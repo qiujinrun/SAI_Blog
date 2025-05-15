@@ -2,13 +2,13 @@
     <div class="main-content">
         <el-card style="max-width: 480px">
             <template #header>
-            <div class="card-header">
-                <span>创作者信息</span>
-            </div>
+                <div class="card-header">
+                    <span>创作者信息</span>
+                </div>
             </template>
             <el-avatar :size="150" :src="userinfo.ico_url" />
             <div class="username">
-                <span>{{userinfo.name}}</span>
+                <span>{{ userinfo.name }}</span>
             </div>
             <div class="user-stats">
                 <div><strong>{{ userinfo.follower }}</strong>
@@ -26,11 +26,11 @@
         <div class="content">
             <div class="name">
                 <span>姓名：</span>
-                <span>{{userInfo.name}}</span>
+                <span>{{ userInfo.name }}</span>
             </div>
             <div class="account">
                 <span>账号：</span>
-                <span>{{userInfo.account}}</span>
+                <span>{{ userInfo.account }}</span>
             </div>
             <div class="account">
                 <span>密码：</span>
@@ -42,7 +42,7 @@
                 <!-- 做个实验 -->
                 <input type="file" ref="fileInput" @change="handleFileChange" accept="image/*" style="display: none" />
                 <!-- <img v-if="imageUrl" :src="imageUrl" class="avatar" @click="triggerUpload" /> -->
-                <el-button class="el-btn" type="success" @click="triggerUpload">选择头像</el-button> 
+                <el-button class="el-btn" type="success" @click="triggerUpload">选择头像</el-button>
                 <!-- <el-button class="el-btn" type="success" @click="triggerUpload">选择头像</el-button> -->
                 <div class="font">支持 jpg/jpeg/png 格式，大小不要超过 2MB
                     图片尺寸 1:1，推荐分辨率：256*256px
@@ -59,12 +59,12 @@
 
 <script setup>
 const VITE_API_URL = import.meta.env.VITE_API_URL
-import { ref,onMounted,watch } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
 import { useUserStore } from '@/store/modules/user'
 import { userdetail } from '@/api/Home/user'
-import { updateMail,uploadAvatar } from "@/api/Self"
+import { updateMail, uploadAvatar } from "@/api/Self"
 import axios from 'axios'
 const userStore = useUserStore()
 const userInfo = userStore.userInfo;
@@ -82,7 +82,7 @@ const getuserdetail = async () => {
     console.log(res)
     if (res.status_code === 1) {
         userinfo.value = res.user;
-        userinfo.value.ico_url = VITE_API_URL  + userinfo.value.ico_url;
+        userinfo.value.ico_url = VITE_API_URL + userinfo.value.ico_url;
         console.log(userinfo.value.ico_url)
     } else {
         ElMessage.error(res.status_msg)
@@ -101,36 +101,35 @@ const UpdateMail = async () => {
 const imageUrl = ref('')
 const fileInput = ref(null)
 const triggerUpload = () => {
-  fileInput.value.click()
+    fileInput.value.click()
 }
 const handleFileChange = async (event) => {
-  const file = event.target.files[0]
-  if (!file) return
+    const file = event.target.files[0]
+    if (!file) return
 
-  // 预览
-  imageUrl.value = URL.createObjectURL(file)
+    // 预览
+    imageUrl.value = URL.createObjectURL(file)
 
-  // 上传
-  const formData = new FormData()
-  formData.append('file', file)
+    // 上传
+    const formData = new FormData()
+    formData.append('file', file)
 
-  try {
     const res = await uploadAvatar(file)
-    console.log('上传成功', res.data)
-    // TODO: 这里可以保存头像地址到用户信息中
-    getuserdetail() 
-  } catch (err) {
-    console.error('上传失败', err)
-  }
+    if (res.status_code === 1) {
+        ElMessage.success(res.status_msg)
+        getuserdetail()
+    } else {
+        ElMessage.error(res.status_msg)
+    }
 }
 watch(
     () => userinfo.ico_url,
     (newValue) => {
-        getuserdetail() 
-    } 
+        getuserdetail()
+    }
 )
 onMounted(() => {
-    getuserdetail() 
+    getuserdetail()
 })
 </script>
 <style scoped lang="scss">
@@ -169,70 +168,83 @@ onMounted(() => {
         }
     }
 }
+
 .basic-info {
     // display: flex;
     text-align: left;
     margin-top: 40px;
     margin-left: -10px;
-    font-size: 20px; 
+    font-size: 20px;
     background-color: white;
     border-radius: 8px;
     border: 1px solid #ccc;
     padding: 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     width: 1000px;
+
     .title {
         font-size: 24px;
         margin-bottom: 20px;
         font-weight: bold;
     }
+
     .content {
-        margin-left: 20px; 
+        margin-left: 20px;
         margin-bottom: 20px;
+
         .name {
-        margin-bottom: 10px;
-        font-size: 20px;
-        } 
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+
         .account {
-        margin-bottom: 10px;
-        font-size: 20px; 
-        } 
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+
         .avater {
             display: flex;
             margin-bottom: 10px;
             font-size: 20px;
+
             .el-avater {
                 display: block;
                 margin-left: 10px;
                 flex-direction: column;
-                align-self: flex-start; /* 避免撑满容器 */
+                align-self: flex-start;
+                /* 避免撑满容器 */
             }
-            .el-btn{
+
+            .el-btn {
                 margin-left: 30px;
                 display: flex;
 
             }
-            .font{
+
+            .font {
                 width: 400px;
                 display: block;
                 margin-left: 20px;
                 color: #ccc;
             }
-        } 
-       .mail {
-            margin-bottom: 10px;
-            font-size: 20px; 
-           .mailinfo {
-            //   margin-left: 10px;
-              margin-top: 10px; 
-              width: 500px;
-            }
-            .el-btn{
-                margin-left: 30px;
-                margin-top: 10px; 
+        }
 
-            } 
-          
+        .mail {
+            margin-bottom: 10px;
+            font-size: 20px;
+
+            .mailinfo {
+                //   margin-left: 10px;
+                margin-top: 10px;
+                width: 500px;
+            }
+
+            .el-btn {
+                margin-left: 30px;
+                margin-top: 10px;
+
+            }
+
         }
     }
 
