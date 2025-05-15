@@ -1,5 +1,5 @@
 import  request  from "@/utils/request";
-import type { MailResponse } from "@/api/Type/Self/type" 
+import type { MailResponse,AvaterResponse } from "@/api/Type/Self/type" 
 
 export function updateMail(email:any) {
   return request<MailResponse>({
@@ -7,4 +7,17 @@ export function updateMail(email:any) {
     method: "post",
     data: { email },
   });
+}
+//上传头像
+export function uploadAvatar(file:any) {
+  const formData = new FormData();
+  formData.append("file", file); 
+  return request<AvaterResponse>({
+    url: "/user/ico-update",
+    method: "post",
+    data: formData, 
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    }
+  })
 }

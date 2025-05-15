@@ -39,13 +39,19 @@
             <div class="avater">
                 <div>个人头像：</div>
                 <el-avatar class="el-avater" :size="100" :src="userinfo.ico_url" />
-
-                <el-button class="el-btn" type="primary" @click="uploadAvatar">上传头像</el-button>
+                <!-- 做个实验 -->
+                <input type="file" ref="fileInput" @change="handleFileChange" accept="image/*" style="display: none" />
+                <!-- <img v-if="imageUrl" :src="imageUrl" class="avatar" @click="triggerUpload" /> -->
+                <el-button class="el-btn" type="success" @click="triggerUpload">选择头像</el-button> 
+                <!-- <el-button class="el-btn" type="success" @click="triggerUpload">选择头像</el-button> -->
+                <div class="font">支持 jpg/jpeg/png 格式，大小不要超过 2MB
+                    图片尺寸 1:1，推荐分辨率：256*256px
+                </div>
             </div>
             <div class="mail">
                 <div>邮箱：</div>
                 <el-input class="mailinfo" v-model="userinfo.email" placeholder="请输入邮箱"></el-input>
-                <el-button class="el-btn" type="primary" @click="UpdateMail">修改邮箱</el-button>
+                <el-button class="el-btn" type="success" @click="UpdateMail">修改邮箱</el-button>
             </div>
         </div>
     </div>
@@ -53,12 +59,13 @@
 
 <script setup>
 const VITE_API_URL = import.meta.env.VITE_API_URL
-import { ref,onMounted } from 'vue'
+import { ref,onMounted,watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
 import { useUserStore } from '@/store/modules/user'
 import { userdetail } from '@/api/Home/user'
-import { updateMail } from "@/api/Self"
+import { updateMail,uploadAvatar } from "@/api/Self"
+import axios from 'axios'
 const userStore = useUserStore()
 const userInfo = userStore.userInfo;
 const uid = userStore.userInfo.ID;
@@ -69,7 +76,7 @@ const userinfo = ref({
     ico_url: '',
     email: ''
 })
-console.log(userinfo)
+//获取用户信息
 const getuserdetail = async () => {
     const res = await userdetail(uid);
     console.log(res)
@@ -90,6 +97,38 @@ const UpdateMail = async () => {
         ElMessage.error(res.status_msg)
     }
 }
+//头像上传
+const imageUrl = ref('')
+const fileInput = ref(null)
+const triggerUpload = () => {
+  fileInput.value.click()
+}
+const handleFileChange = async (event) => {
+  const file = event.target.files[0]
+  if (!file) return
+
+  // 预览
+  imageUrl.value = URL.createObjectURL(file)
+
+  // 上传
+  const formData = new FormData()
+  formData.append('file', file)
+
+  try {
+    const res = await uploadAvatar(file)
+    console.log('上传成功', res.data)
+    // TODO: 这里可以保存头像地址到用户信息中
+    getuserdetail() 
+  } catch (err) {
+    console.error('上传失败', err)
+  }
+}
+watch(
+    () => userinfo.ico_url,
+    (newValue) => {
+        getuserdetail() 
+    } 
+)
 onMounted(() => {
     getuserdetail() 
 })
@@ -165,9 +204,19 @@ onMounted(() => {
             .el-avater {
                 display: block;
                 margin-left: 10px;
+                flex-direction: column;
+                align-self: flex-start; /* 避免撑满容器 */
             }
             .el-btn{
                 margin-left: 30px;
+                display: flex;
+
+            }
+            .font{
+                width: 400px;
+                display: block;
+                margin-left: 20px;
+                color: #ccc;
             }
         } 
        .mail {
