@@ -69,7 +69,7 @@
 </template>
 
 <script setup>
-const VITE_API_URL = import.meta.env.VITE_API_URL
+// const VITE_API_URL = import.meta.env.VITE_API_URL
 import { ref, onMounted, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
@@ -108,7 +108,7 @@ const getuserdetail = async () => {
     console.log(res)
     if (res.status_code === 1) {
         userinfo.value = res.user;
-        userinfo.value.ico_url = VITE_API_URL + userinfo.value.ico_url;
+        userinfo.value.ico_url ="http://1.95.40.68:8081"+userinfo.value.ico_url;
         console.log(userinfo.value.ico_url)
     } else {
         ElMessage.error(res.status_msg)
@@ -154,6 +154,7 @@ onMounted(() => {
 </script>
 <style scoped lang="scss">
 .main-content {
+    color: black;
     margin-top: 40px;
     margin-left: -10px;
 
@@ -201,31 +202,36 @@ onMounted(() => {
     padding: 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     width: 1000px;
-
+    color: black;
     .title {
         font-size: 24px;
         margin-bottom: 20px;
         font-weight: bold;
+        color: black;
     }
 
     .content {
         margin-left: 20px;
         margin-bottom: 20px;
+        color: black;
 
         .name {
             margin-bottom: 10px;
             font-size: 20px;
+            color: black;
         }
 
         .account {
             margin-bottom: 10px;
             font-size: 20px;
+            color: black;
         }
 
         .avater {
             display: flex;
             margin-bottom: 10px;
             font-size: 20px;
+            color: black;
 
             .el-avater {
                 display: block;
@@ -252,6 +258,7 @@ onMounted(() => {
         .mail {
             margin-bottom: 10px;
             font-size: 20px;
+            color: black;
 
             .mailinfo {
                 //   margin-left: 10px;

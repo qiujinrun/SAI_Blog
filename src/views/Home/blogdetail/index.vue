@@ -63,7 +63,7 @@
 
             <div class="el-commentcontainer">
                 <div class="el-comment-item" v-for="item in context.comment_info" :key="item.Comment.blog_id" >
-                    <el-avatar :size="40" :src="VITE_API_URL + item.user.ico_url" class="comment-avater" />
+                    <el-avatar :size="40" :src="'http://1.95.40.68:8081' + item.user.ico_url" class="comment-avater" />
                     <div class="comment-content">
                         <div class="comment-header">
                             <!-- <div class="username">{{ item.user.name }}</div> -->
@@ -80,7 +80,7 @@
     </div>
 </template>
 <script setup lang="ts">
-const VITE_API_URL = import.meta.env.VITE_API_URL
+// const VITE_API_URL = import.meta.env.VITE_API_URL
 import { ref, onMounted, watchEffect, onUnmounted } from 'vue'
 import Header from '@/components/Home/header.vue'
 import { blogdetail,givelike } from '@/api/Home/blogdetail'
@@ -134,7 +134,7 @@ const Getblogdetail = async () => {
     // console.log(res);
     if (res.status_code === 1) {
         context.value = res;
-        context.value.user_icon = VITE_API_URL + context.value.user_icon;
+        context.value.user_icon = "http://1.95.40.68:8081" + context.value.user_icon;
     } else {
         ElMessage.error('请求失败，请稍后再试');
         console.log(res);
@@ -239,6 +239,7 @@ watchEffect(() => {
             line-height: 40px;
             text-align: left;
             margin-top: 20px;
+            color: black;
         }
     }
     .foot-likes {

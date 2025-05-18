@@ -69,6 +69,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { useUserStore } from '@/store/modules/user'
 const userStore = useUserStore()
 const avater_url = userStore.userInfo.ico_url
+void avater_url
 const route = useRoute()
 const activeIndex = ref<string>(route.path)
 

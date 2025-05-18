@@ -29,3 +29,11 @@ export function sendResetMail() {
     method: "post",
   });
 }
+//修改密码
+export function resetPassword(password:any) {
+  return request({
+    url: "/user/reset/admin",
+    method: "post",
+    data: { password }
+  });
+}

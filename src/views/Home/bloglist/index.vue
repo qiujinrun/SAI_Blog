@@ -77,6 +77,7 @@ onMounted(async () => {
     text-align: left;
     font-size: 30px;
     font-weight: bold;
+    color: black;
 
 }
 
@@ -84,7 +85,7 @@ onMounted(async () => {
     // margin-left: 180px;
     background-color: white;
     display: block;
-
+    color: black;
     .el-model {
 
         text-align: left;
@@ -111,6 +112,7 @@ onMounted(async () => {
             font-size: 16px;
             margin-right: 10px;
             margin-left: 15px;
+            color: black;
 
             .username {
                 color: green;
@@ -122,12 +124,14 @@ onMounted(async () => {
             font-size: 16px;
             margin-right: 10px;
             margin-left: 15px;
+            color: black;
         }
 
         .comments {
             font-size: 16px;
             margin-right: 10px;
             margin-left: 15px;
+            color: black;
         }
     }
 }
