@@ -1,9 +1,11 @@
 <template lang="">
     <Header :Menudata="Menudata" />
-    <el-form-item label="修改密码">
-      <el-input v-model="new_password" />
-    </el-form-item>
-    <el-button type="primary" @click="toResetPassword">提交</el-button>
+    <div class="main-container">
+      <el-form-item label="修改密码">
+        <el-input v-model="new_password" />
+      </el-form-item>
+      <el-button type="primary" @click="toResetPassword">提交</el-button>
+    </div>
 </template>
 <script setup lang="ts">
 import { ref } from 'vue'
@@ -35,6 +37,8 @@ const toResetPassword = async () => {
 void toResetPassword
 console.log('token from email:', token)
 </script>
-<style lang="">
-    
+<style scoped lang="scss">
+.main-container {
+  margin-top: 100px;
+}
 </style>

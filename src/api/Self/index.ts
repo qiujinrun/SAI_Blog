@@ -31,7 +31,7 @@ export function sendResetMail() {
 }
 //修改密码
 export function resetPassword(password:any) {
-  return request({
+  return request<ResetResponse>({
     url: "/user/reset/admin",
     method: "post",
     data: { password }
