@@ -35,6 +35,11 @@ export default createRouter({
       component: () => import('../views/Home/self/Info/Upassword/index.vue'), 
     },
     {
+      path: '/home/community/detail',
+      name: '重置密码',
+      component: () => import('../views/Home/self/Info/Upassword/index.vue'), 
+    },
+    {
       path: '/home/self', 
       name: '个人主页', 
       component: () => import('../views/Home/self/index.vue'),
@@ -67,6 +72,11 @@ export default createRouter({
           path: 'subscribe',
           name: '关注订阅',
           component: () => import('../views/Home/subscribe/index.vue') 
+        },
+        {
+          path: 'community',
+          name: '社区',
+          component: () => import('../views/Home/community/index.vue') 
         },
       ]
     }

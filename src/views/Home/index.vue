@@ -17,6 +17,7 @@
           >
             <el-menu-item index="/home/blog">博客论坛</el-menu-item>
             <el-menu-item index="/home/subscribe">关注订阅</el-menu-item>
+            <el-menu-item index="/home/community">群聊</el-menu-item>
           </el-menu>
         </el-aside>
 
