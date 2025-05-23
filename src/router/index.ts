@@ -35,9 +35,9 @@ export default createRouter({
       component: () => import('../views/Home/self/Info/Upassword/index.vue'), 
     },
     {
-      path: '/home/community/detail',
+      path: '/community/detail',
       name: '重置密码',
-      component: () => import('../views/Home/self/Info/Upassword/index.vue'), 
+      component: () => import('../views/Community/index.vue'), 
     },
     {
       path: '/home/self', 

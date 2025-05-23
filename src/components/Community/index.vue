@@ -1,6 +1,6 @@
 <template lang="">
     <div class="big-container">
-        <router-link>
+        <router-link :to="'/community/detail/'">
             <div class="main-container">
                 <div class="title">
                     {{Menudata.menu[0].label}}
