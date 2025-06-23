@@ -17,6 +17,7 @@
 <script setup lang="ts">
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 import Header from '@/components/Home/header.vue'
+void Header
 const Menudata = ref({
     // title: '首页',
     menu: [
@@ -32,7 +33,7 @@ const messages = ref<{ name: string, text: string }[]>([])
 const input = ref('')
 // const username = ref(prompt('请输入昵称') || '匿名用户')
 const connect = () => {
-    ws.value = new WebSocket('ws://1.95.40.68:8081/ws?groupId=1')
+    ws.value = new WebSocket('ws://1.95.40.68/ws?groupId=1')
     ws.value.onopen = () => {
         console.log('WebSocket连接成功')
     }
@@ -61,6 +62,7 @@ const send = () => {
         input.value = ''
     }
 }
+void send
 onMounted(() => {
     connect()
 })
