@@ -28,7 +28,7 @@
     </div>
 </template>
 <script setup>
-  import { onBeforeUnmount, ref, shallowRef, onMounted,watch } from 'vue'
+import { onBeforeUnmount, ref, shallowRef, onMounted, watch } from 'vue'
 import Header from '@/components/Home/header.vue'
 import { Toolbar, Editor } from '@wangeditor/editor-for-vue'
 import '@wangeditor/editor/dist/css/style.css'
@@ -42,12 +42,12 @@ const toolbarConfig = {}
 const editortitle = ref('')
 // 内容 HTML
 const valueHtml = ref('')
-const mode = 'default' // 或 'simple' 取决于你想要的样式
+const mode = 'default' // 或 'simple' 取决于想要的样式
 const editorConfig = {
   placeholder: '请输入内容...',
   MENU_CONF: {
     uploadImage: {
-      server: '/api/blog/content-images-load', // 你的上传接口地址
+      server: '/api/blog/content-images-load', // 上传接口地址
       fieldName: 'file', // 上传字段名
       // 自定义上传成功后返回的图片 URL（如果后端结构和默认不一样）
       customInsert(res, insertFn) {
@@ -56,9 +56,9 @@ const editorConfig = {
         const fullurl = baseUrl + url
         if (res.status_code === 1) {
           insertFn(fullurl)
-          ElMessage.success('上传成功') 
+          ElMessage.success('上传成功')
         } else {
-          ElMessage.error('上传失败') 
+          ElMessage.error('上传失败')
         }
       },
       headers: {
@@ -75,14 +75,14 @@ watch(
   () => editorConfig.value,
   (newValue) => {
     console.log('标题变化：', newValue)
-  } 
+  }
 )
 
 
 const Menudata = ref({
 
   menu: [
-//   {  label: '首页' }
+    //   {  label: '首页' }
     { index: '/home', label: '首页' },
     { index: '', label: '撰写博客' }
   ]
@@ -96,42 +96,43 @@ const Menudata = ref({
 // }
 
 const PostBlog = async (e) => {
-    const answer = {
-        title: editortitle.value,
-        content: valueHtml.value 
-    }
+  const answer = {
+    title: editortitle.value,
+    content: valueHtml.value
+  }
   try {
-    
+
     const answerJson = JSON.stringify(answer);
     console.log(answer)
     const res = await postblog(answerJson)
     if (res.status_code === 1) {
-      ElMessage.success('上传成功') 
+      ElMessage.success('上传成功')
       router.push('/home')
     } else {
-      ElMessage.error('上传失败') 
+      ElMessage.error('上传失败')
     }
-    console.log(res) 
-  }catch (error) {
-    console.log(error) 
+    console.log(res)
+  } catch (error) {
+    console.log(error)
   }
 }
 const handleCreated = (editor) => {
   editorRef.value = editor
 }
 onBeforeUnmount(() => {
-    const editor = editorRef.value
-    if (editor == null) return
-    editor.destroy()
+  const editor = editorRef.value
+  if (editor == null) return
+  editor.destroy()
 })
 </script>
 <style scoped lang="scss">
 .editor-container {
-  padding-top: 80px; /* 视情况调整 */
+  padding-top: 80px;
   font-size: 20px;
   text-align: left;
+
   .el-button {
-    margin-top: 20px; /* 视情况调整 */ 
+    margin-top: 20px;
   }
 }
 </style>

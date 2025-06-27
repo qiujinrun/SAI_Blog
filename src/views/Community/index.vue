@@ -34,6 +34,7 @@ const input = ref('')
 // const username = ref(prompt('请输入昵称') || '匿名用户')
 const connect = () => {
     ws.value = new WebSocket('ws://1.95.40.68/ws?groupId=1')
+    // ws.value = new WebSocket('ws://localhost:8000')
     ws.value.onopen = () => {
         console.log('WebSocket连接成功')
     }

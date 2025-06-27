@@ -14,11 +14,7 @@
                 {{ context.title }}
             </div>
             <div class="user">
-                <el-avatar 
-                :size="50" 
-                :src="context.user_icon" 
-                class="evatar" 
-                />
+                <el-avatar :size="50" :src="context.user_icon" class="evatar" />
                 <router-link :to="`/home/user/${context.uid}`" class="name">
                     <strong>{{ context.user_name }}</strong>
                 </router-link>
@@ -26,14 +22,10 @@
             <div class="content" v-html="context.content"></div>
         </div>
         <div class="foot-likes">
-            <el-button 
-            type="success" 
-            class="foot-btn" 
-            @click="Likes"
-            plain>
+            <el-button type="success" class="foot-btn" @click="Likes" plain>
                 <el-icon>
                     <i class="el-icon-thumb-up">点赞</i>
-                    </el-icon>
+                </el-icon>
             </el-button>
         </div>
         <div class="comment">
@@ -43,26 +35,15 @@
                 <el-form ref="formDataRef" :model="formData" label-width="80px">
                     <!-- textarea输入 -->
                     <el-form-item label="" prop="comment">
-                        <el-input 
-                        class="custom-textarea" 
-                        type="textarea" 
-                        v-model="formData.comment" 
-                        :rows="4"
-                        :maxlength="150" 
-                        resize="none" 
-                        show-word-limit 
-                        placeholder="手下留情，友好评论"></el-input>
+                        <el-input class="custom-textarea" type="textarea" v-model="formData.comment" :rows="4"
+                            :maxlength="150" resize="none" show-word-limit placeholder="手下留情，友好评论"></el-input>
                     </el-form-item>
                 </el-form>
-                <el-button 
-                type="success" 
-                @click="Postcomment" 
-                class="el-btn" 
-                >提交</el-button>
+                <el-button type="success" @click="Postcomment" class="el-btn">提交</el-button>
             </div>
 
             <div class="el-commentcontainer">
-                <div class="el-comment-item" v-for="item in context.comment_info" :key="item.Comment.blog_id" >
+                <div class="el-comment-item" v-for="item in context.comment_info" :key="item.Comment.blog_id">
                     <el-avatar :size="40" :src="'http://1.95.40.68:8081' + item.user.ico_url" class="comment-avater" />
                     <div class="comment-content">
                         <div class="comment-header">
@@ -83,7 +64,7 @@
 // const VITE_API_URL = import.meta.env.VITE_API_URL
 import { ref, onMounted, watchEffect, onUnmounted } from 'vue'
 import Header from '@/components/Home/header.vue'
-import { blogdetail,givelike } from '@/api/Home/blogdetail'
+import { blogdetail, givelike } from '@/api/Home/blogdetail'
 import { postcomment } from '@/api/Comment'
 import type { BlogDetailResponse } from '@/api/Type/Home/type'
 import { ElMessage } from 'element-plus'
@@ -101,7 +82,7 @@ const avater_url = userStore.userInfo.ico_url
 const Menudata = ref({
     menu: [
         { index: '/home', label: '首页' },
-        { index:'' , label: '博客详情' }
+        { index: '', label: '博客详情' }
     ]
 })
 //博客详情
@@ -124,9 +105,9 @@ import type { Comment_info } from '@/api/Type/Home/type' // 根据你的路径�
 const comment_info = ref<Comment_info[]>([])
 
 watchEffect(() => {
-  if (context.value.comment_info) {
-    comment_info.value = context.value.comment_info
-  }
+    if (context.value.comment_info) {
+        comment_info.value = context.value.comment_info
+    }
 })
 
 const Getblogdetail = async () => {
@@ -152,13 +133,13 @@ const Postcomment = async () => {
 }
 //点赞
 const Likes = async () => {
-   const res = await givelike(blog_id)
-   if (res.status_code === 1) {
-    ElMessage.success('点赞成功');
-    Getblogdetail(); 
-   } else {
-    ElMessage.error('点赞失败，请稍后再试'); 
-   }
+    const res = await givelike(blog_id)
+    if (res.status_code === 1) {
+        ElMessage.success('点赞成功');
+        Getblogdetail();
+    } else {
+        ElMessage.error('点赞失败，请稍后再试');
+    }
 }
 //取消点赞
 // const Cancellike = async () => {
@@ -199,8 +180,9 @@ watchEffect(() => {
         border-radius: 50%;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         z-index: 1000;
-        /* 垂直居中 */ 
+        /* 垂直居中 */
     }
+
     .el-container {
         margin: 150px auto 0;
         padding: 20px;
@@ -242,6 +224,7 @@ watchEffect(() => {
             color: black;
         }
     }
+
     .foot-likes {
         display: flex;
         justify-content: center;
@@ -250,7 +233,7 @@ watchEffect(() => {
         gap: 10px;
 
         /* 两个元素之间留点间距，可调 */
-       .foot-btn {
+        .foot-btn {
             width: 100px;
             height: 50px;
             font-size: 20px;
@@ -290,41 +273,41 @@ watchEffect(() => {
                 padding-bottom: 15px;
                 border-bottom: 1px solid #e0e0e0;
 
-                .comment-avater{
+                .comment-avater {
                     width: 40px;
                     height: 40px;
                     border-radius: 50%;
                     flex-shrink: 0;
-                } 
+                }
 
-               .comment-content {
+                .comment-content {
                     display: flex;
                     flex-direction: column;
                     flex: 1;
                     text-align: left;
 
-                   .comment-header {
+                    .comment-header {
                         font-size: 14px;
                         line-height: 1.4;
-                        color: #333;  
+                        color: #333;
 
-                       .username {
+                        .username {
                             font-size: 20px;
                             // display: block;
                             font-weight: bold;
                             color: green;
-                        } 
-                       
-                      .dot {
+                        }
+
+                        .dot {
                             display: block;
                             margin: 0 5px;
                             color: #333;
-                        } 
+                        }
 
-                      .comment-detail {
+                        .comment-detail {
                             font-size: 22px;
                             color: #666;
-                      }
+                        }
                     }
                 }
             }
