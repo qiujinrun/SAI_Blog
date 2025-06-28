@@ -64,32 +64,32 @@
 </template>
   
 <script setup lang="ts">
-import { ref, watch } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-import { useUserStore } from '@/store/modules/user'
-const userStore = useUserStore()
-const avater_url = userStore.userInfo.ico_url
-void avater_url
-const route = useRoute()
-const activeIndex = ref<string>(route.path)
+import { ref, watch } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+import { useUserStore } from '@/store/modules/user';
+const userStore = useUserStore();
+const avater_url = userStore.userInfo.ico_url;
+void avater_url;
+const route = useRoute();
+const activeIndex = ref<string>(route.path);
 
 // 跳转到博客
 const gotoBlog = () => {
-  router.push('/self/blog')
-}
+  router.push('/self/blog');
+};
 // 跳转到设置
 const gotoSetting = () => {
-  router.push('/self/information') 
-}
+  router.push('/self/information'); 
+};
 // 退出登录
-const router = useRouter()
+const router = useRouter();
 const goToLogin = () => {
-  router.push('/login')
-}
+  router.push('/login');
+};
 // // 路由监听
 watch(route, (newRoute) => {
-  activeIndex.value = newRoute.path
-})
+  activeIndex.value = newRoute.path;
+});
 interface MenuItem {
   index: string
   label: string
@@ -99,20 +99,20 @@ interface PageData {
 }
 defineProps<{
   Menudata: PageData
-}>()
-const isEditorPage = ref(route.path === '/editor')
+}>();
+const isEditorPage = ref(route.path === '/editor');
 
 // 监听路由变化，实时更新
 watch(
 () => route.path,
 (newPath) => {
-  isEditorPage.value = newPath === '/editor'
+  isEditorPage.value = newPath === '/editor';
 }
-)
+);
 // 写博客
 const editor = () => {
-  router.push('/editor')
-}
+  router.push('/editor');
+};
 </script>
 
 <style scoped lang="scss">

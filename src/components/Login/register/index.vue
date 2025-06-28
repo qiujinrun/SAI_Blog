@@ -65,12 +65,12 @@
   </section>
 </template>
 <script setup >
-import { reactive } from 'vue'
-import { useRouter } from 'vue-router'
-import { userregister } from '@/api/Login'
+import { reactive } from 'vue';
+import { useRouter } from 'vue-router';
+import { userregister } from '@/api/Login';
 import { ElMessage } from 'element-plus';
-const router = useRouter()
-let User = reactive({ name:'',account: '', password: '',})
+const router = useRouter();
+let User = reactive({ name:'',account: '', password: '',});
 const register = async () => {
   try {
     let res = await userregister(User);
@@ -88,7 +88,7 @@ const register = async () => {
     console.error("注册请求错误:", error);
     ElMessage.error('注册请求失败，请稍后再试');
   }
-}
+};
 </script>
 <style scoped lang="">
     

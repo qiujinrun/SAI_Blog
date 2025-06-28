@@ -15,63 +15,63 @@
     </div>
 </template>
 <script setup lang="ts">
-import { ref, onMounted, onBeforeUnmount } from 'vue'
-import Header from '@/components/Home/header.vue'
-void Header
+import { ref, onMounted, onBeforeUnmount } from 'vue';
+import Header from '@/components/Home/header.vue';
+void Header;
 const Menudata = ref({
     // title: '首页',
     menu: [
         { index: '/home', label: '首页' },
         { index: '', label: '聊天室' },
     ]
-})
-void Menudata
+});
+void Menudata;
 
 //聊天室功能
-const ws = ref<WebSocket | null>(null)
-const messages = ref<{ name: string, text: string }[]>([])
-const input = ref('')
+const ws = ref<WebSocket | null>(null);
+const messages = ref<{ name: string, text: string }[]>([]);
+const input = ref('');
 // const username = ref(prompt('请输入昵称') || '匿名用户')
 const connect = () => {
-    ws.value = new WebSocket('ws://1.95.40.68/ws?groupId=1')
+    ws.value = new WebSocket('ws://1.95.40.68/ws?groupId=1');
     // ws.value = new WebSocket('ws://localhost:8000')
     ws.value.onopen = () => {
-        console.log('WebSocket连接成功')
-    }
+        console.log('WebSocket连接成功');
+    };
     ws.value.onmessage = (event) => {
-        const msg = JSON.parse(event.data)
+        const msg = JSON.parse(event.data);
         messages.value.push({
             name: msg.from_user.name,
             text: msg.content,
-        })
-    }
+        });
+    };
     ws.value.onclose = () => {
-        console.log('WebSocket连接关闭')
-    }
+        console.log('WebSocket连接关闭');
+    };
     ws.value.onerror = (err) => {
-        console.error('WebSocket发生错误', err)
-    }
-}
+        console.error('WebSocket发生错误', err);
+    };
+};
 const send = () => {
     if (ws.value && input.value.trim()) {
         const msg = {
             name: '用户',
             text: input.value
-        }
-        ws.value.send(JSON.stringify(msg)) // 发送字符串格式
-        messages.value.push(msg)
-        input.value = ''
+        };
+        ws.value.send(JSON.stringify(msg)); // 发送字符串格式
+        messages.value.push(msg);
+        input.value = '';
     }
-}
-void send
+};
+void send;
 onMounted(() => {
-    connect()
-})
+    connect();
+});
 onBeforeUnmount(() => {
     if (ws.value) {
-        ws.value.close()
+        ws.value.close();
     }
-})
+});
 </script>
 <style scoped lang="scss">
 .main-container {

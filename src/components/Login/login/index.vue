@@ -32,31 +32,31 @@
   </section>
 </template>
 <script setup>
-import { reactive } from 'vue'
-import { useRouter } from 'vue-router'
-import { userlogin } from '@/api/Login'
-import { ElMessage } from 'element-plus'
-import { useUserStore } from '@/store/modules/user'
+import { reactive } from 'vue';
+import { useRouter } from 'vue-router';
+import { userlogin } from '@/api/Login';
+import { ElMessage } from 'element-plus';
+import { useUserStore } from '@/store/modules/user';
 
 //获取仓库对象
-const userStore = useUserStore()
-const router = useRouter()
-let User = reactive({ account: '', password: '', })
+const userStore = useUserStore();
+const router = useRouter();
+let User = reactive({ account: '', password: '', });
 const login = async () => {
   try {
     let res = await userlogin(User);
     console.log(res);
     if (res && res.status_code === 1) {
       ElMessage.success(res.status_msg);
-      localStorage.setItem('token', res.token)
+      localStorage.setItem('token', res.token);
       // 存储用户信息到仓库中
       if (userStore.userInfo) {
-        userStore.clearUserInfo()
-        userStore.setUserInfo(res.user)
+        userStore.clearUserInfo();
+        userStore.setUserInfo(res.user);
       } else {
-        userStore.setUserInfo(res.user)
+        userStore.setUserInfo(res.user);
       }
-      router.push('/home')
+      router.push('/home');
     } else if (res && res.status_code === 0) {
       ElMessage.error(res.status_msg);
     } else {
@@ -66,7 +66,7 @@ const login = async () => {
   } catch (error) {
     ElMessage.error('登录请求失败，请稍后再试');
   }
-}
+};
 </script>
 <style scoped lang="">
 

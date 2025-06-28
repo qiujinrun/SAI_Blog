@@ -18,24 +18,24 @@
   </template>
   
   <script setup lang="ts">
-  import { ref} from 'vue'
-  import { useRouter } from 'vue-router'
-  import login from '@/components/Login/login/index.vue'
-  import register from '@/components/Login/register/index.vue'
-  const router = useRouter()
+  import { ref} from 'vue';
+  import { useRouter } from 'vue-router';
+  import login from '@/components/Login/login/index.vue';
+  import register from '@/components/Login/register/index.vue';
+  const router = useRouter();
   // const route = useRoute()
   
   // 用于顶部三种模式切换（可根据需求完善）
-  const mode = ref<'login'|'register'>('login')
+  const mode = ref<'login'|'register'>('login');
   
   // 用于底部登录/注册 tab
 //   const tab = ref<'login'|'register'>(route.path.endsWith('register') ? 'register' : 'login')
   
   // 监听 tab 变化，切换路由
   function onTabClick(tabPane: any) {
-    router.push(`/Login/${tabPane.name}`)
+    router.push(`/Login/${tabPane.name}`);
   }
-  console.log(onTabClick)
+  console.log(onTabClick);
   // Keep tab in sync when URL changes
   // watch(() => route.path, p => {
   //   tab.value = p.endsWith('register') ? 'register' : 'login'

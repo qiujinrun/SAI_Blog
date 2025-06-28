@@ -5,8 +5,9 @@ import parser from "@typescript-eslint/parser";
 import pluginVue from "eslint-plugin-vue";
 import vueEslintParser from "vue-eslint-parser";
 import { defineConfig } from "eslint/config";
+// import prettierRecommended from 'eslint-plugin-prettier/recommended'
 
-// 导出一个数组
+// 导出一个数组 
 export default defineConfig([
   //拆分写法，将vue,js,ts文件拆开来设置
   {
@@ -15,7 +16,7 @@ export default defineConfig([
       globals: globals.browser,
     },
   },
-  {
+  { 
     files: ["**/*.ts"],
     languageOptions:{
       parser,
@@ -27,7 +28,8 @@ export default defineConfig([
     plugins: { '@typescript-eslint': tseslint },
     rules: {
       ...tseslint.configs.recommended.rules,
-       "@typescript-eslint/no-explicit-any": "warn"
+      "@typescript-eslint/no-explicit-any": "warn",
+      "semi":['error']
     }
   },
   {
@@ -46,8 +48,7 @@ export default defineConfig([
       ...pluginVue.configs["flat/essential"].rules,
       "no-console": "off", 
       "vue/max-attributes-per-line": "off",
-      
-
+      "semi":['error']
     }
   },
 ]);

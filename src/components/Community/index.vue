@@ -10,7 +10,7 @@
     </div>
 </template>
 <script setup lang="ts">
-import { defineProps } from 'vue'
+import { defineProps } from 'vue';
 
 interface MenuItem {
   index: string
@@ -21,7 +21,7 @@ interface PageData {
 }
 defineProps<{
   Menudata: PageData
-}>()
+}>();
 </script>
 <style scoped lang="scss">
     .big-container {

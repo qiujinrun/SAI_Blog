@@ -36,9 +36,9 @@ import { ref, onMounted, watch } from 'vue';
 import { getbloglist, getblogcount } from '@/api/Home';
 import type { Blog } from '@/api/Type/Home/type';
 import { ElMessage } from 'element-plus';
-let pageNo = ref<string>('1')
-let key = ref<string>('')
-let totalmsg = ref<number>(90)
+let pageNo = ref<string>('1');
+let key = ref<string>('');
+let totalmsg = ref<number>(90);
 const bloglist = ref({} as Blog[]);
 const blogcount = ref<number>(0);
 // let pageSize = ref<number>(10)
@@ -47,7 +47,7 @@ const blogcount = ref<number>(0);
 
 watch(pageNo, (newVal) => {
     fetchBlogList();
-    console.log(newVal)
+    console.log(newVal);
 });
 const fetchBlogList = async () => {
     const res = await getbloglist(key.value, pageNo.value);
@@ -65,11 +65,11 @@ const fetchBlogCount = async () => {
     } else {
         ElMessage.error('登录请求失败，请稍后再试');
     }
-}
+};
 onMounted(async () => {
     fetchBlogList();
     fetchBlogCount();
-})
+});
 </script>
 <style scoped lang="scss">
 .el-header {

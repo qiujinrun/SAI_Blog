@@ -1,11 +1,11 @@
-import axios from 'axios'
-import type { AxiosRequestConfig } from 'axios'
-import { ElMessage } from 'element-plus'
+import axios from 'axios';
+import type { AxiosRequestConfig } from 'axios';
+import { ElMessage } from 'element-plus';
 const request = axios.create({
     baseURL: '/api',
     timeout: 5000,
     headers: { 'Content-Type': 'application/json' }
-})
+});
 request.interceptors.request.use(
     (config) => {
     const token = localStorage.getItem('token') || '';
@@ -48,12 +48,12 @@ request.interceptors.response.use(
               });
               break;
       }
-      return Promise.reject(new Error(error.message))
+      return Promise.reject(new Error(error.message));
   }
 
-)
+);
 export default function <T = any>(config: AxiosRequestConfig): Promise<T> {
-    return request(config)
+    return request(config);
   }
 // export default request
 

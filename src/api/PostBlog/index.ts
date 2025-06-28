@@ -5,5 +5,5 @@ export function postblog(content:object){
         url:'/blog/upload',
         method:'post',
         data:content
-    })
+    });
 }

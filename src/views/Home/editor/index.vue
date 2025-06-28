@@ -28,21 +28,21 @@
     </div>
 </template>
 <script setup>
-import { onBeforeUnmount, ref, shallowRef, onMounted, watch } from 'vue'
-import Header from '@/components/Home/header.vue'
-import { Toolbar, Editor } from '@wangeditor/editor-for-vue'
-import '@wangeditor/editor/dist/css/style.css'
-import { postblog } from '@/api/PostBlog'
-import { ElMessage } from 'element-plus'
-import { useRouter } from 'vue-router'
-const router = useRouter()
+import { onBeforeUnmount, ref, shallowRef, onMounted, watch } from 'vue';
+import Header from '@/components/Home/header.vue';
+import { Toolbar, Editor } from '@wangeditor/editor-for-vue';
+import '@wangeditor/editor/dist/css/style.css';
+import { postblog } from '@/api/PostBlog';
+import { ElMessage } from 'element-plus';
+import { useRouter } from 'vue-router';
+const router = useRouter();
 // 编辑器实例，必须用 shallowRef
-const editorRef = shallowRef()
-const toolbarConfig = {}
-const editortitle = ref('')
+const editorRef = shallowRef();
+const toolbarConfig = {};
+const editortitle = ref('');
 // 内容 HTML
-const valueHtml = ref('')
-const mode = 'default' // 或 'simple' 取决于想要的样式
+const valueHtml = ref('');
+const mode = 'default'; // 或 'simple' 取决于想要的样式
 const editorConfig = {
   placeholder: '请输入内容...',
   MENU_CONF: {
@@ -51,14 +51,14 @@ const editorConfig = {
       fieldName: 'file', // 上传字段名
       // 自定义上传成功后返回的图片 URL（如果后端结构和默认不一样）
       customInsert(res, insertFn) {
-        const baseUrl = 'http://1.95.40.68:8081'
-        const url = res.status_msg || res[0]
-        const fullurl = baseUrl + url
+        const baseUrl = 'http://1.95.40.68:8081';
+        const url = res.status_msg || res[0];
+        const fullurl = baseUrl + url;
         if (res.status_code === 1) {
-          insertFn(fullurl)
-          ElMessage.success('上传成功')
+          insertFn(fullurl);
+          ElMessage.success('上传成功');
         } else {
-          ElMessage.error('上传失败')
+          ElMessage.error('上传失败');
         }
       },
       headers: {
@@ -70,13 +70,13 @@ const editorConfig = {
       maxFileSize: 2 * 1024 * 1024, // 2MB
     }
   }
-}
+};
 watch(
   () => editorConfig.value,
   (newValue) => {
-    console.log('标题变化：', newValue)
+    console.log('标题变化：', newValue);
   }
-)
+);
 
 
 const Menudata = ref({
@@ -86,7 +86,7 @@ const Menudata = ref({
     { index: '/home', label: '首页' },
     { index: '', label: '撰写博客' }
   ]
-})
+});
 
 // const insertText = () => {
 //   const editor = editorRef.value // 获取 editor ，必须等待它渲染完之后
@@ -99,31 +99,31 @@ const PostBlog = async (e) => {
   const answer = {
     title: editortitle.value,
     content: valueHtml.value
-  }
+  };
   try {
 
     const answerJson = JSON.stringify(answer);
-    console.log(answer)
-    const res = await postblog(answerJson)
+    console.log(answer);
+    const res = await postblog(answerJson);
     if (res.status_code === 1) {
-      ElMessage.success('上传成功')
-      router.push('/home')
+      ElMessage.success('上传成功');
+      router.push('/home');
     } else {
-      ElMessage.error('上传失败')
+      ElMessage.error('上传失败');
     }
-    console.log(res)
+    console.log(res);
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-}
+};
 const handleCreated = (editor) => {
-  editorRef.value = editor
-}
+  editorRef.value = editor;
+};
 onBeforeUnmount(() => {
-  const editor = editorRef.value
-  if (editor == null) return
-  editor.destroy()
-})
+  const editor = editorRef.value;
+  if (editor == null) return;
+  editor.destroy();
+});
 </script>
 <style scoped lang="scss">
 .editor-container {

@@ -1,6 +1,6 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router';
 //安装vue-router
-import 'vue-router'
+import 'vue-router';
 
 export default createRouter({
   history: createWebHistory(), 
@@ -81,4 +81,4 @@ export default createRouter({
       ]
     }
   ]
-})
+});

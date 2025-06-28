@@ -5,6 +5,6 @@ export function postcomment(blog_id:any,comment:any) {
         url: `/blog/comment/${blog_id}`,
         method: 'post',
         data: { comment }
-    })
+    });
 
 }

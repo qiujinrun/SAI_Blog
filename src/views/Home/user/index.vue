@@ -61,17 +61,17 @@
 </template>
 <script setup lang="ts">
 // const VITE_API_URL = import.meta.env.VITE_API_URL
-import { ref, onMounted, watch } from 'vue'
-import type { User } from '@/api/Type/Home/type'
-import Header from '@/components/Home/header.vue'
+import { ref, onMounted, watch } from 'vue';
+import type { User } from '@/api/Type/Home/type';
+import Header from '@/components/Home/header.vue';
 //避免打包时报错
-console.log(Header)
-import { userdetail, follow, unfollow, getuserbloglist } from '@/api/Home/user'
-import { useRoute } from 'vue-router'
+console.log(Header);
+import { userdetail, follow, unfollow, getuserbloglist } from '@/api/Home/user';
+import { useRoute } from 'vue-router';
 // import type { AxiosResponse } from 'axios';
 import { ElMessage } from 'element-plus';
-const route = useRoute()
-const uid = route.params.uid
+const route = useRoute();
+const uid = route.params.uid;
 const userinfo = ref<User>({
     ID: 0,
     name: '',
@@ -79,71 +79,71 @@ const userinfo = ref<User>({
     follower: 0,
     following: 0,
     is_follow: false
-})
-const userbloglist = ref({})
+});
+const userbloglist = ref({});
 const Menudata = ref({
     //   title: '首页',
     menu: [
         { index: '/home', label: '首页' },
         { index:'', label: '用户详情' }
     ]
-})
-console.log(Menudata)
+});
+console.log(Menudata);
 const getuserdetail = async () => {
     const res = await userdetail(uid);
-    console.log(res)
+    console.log(res);
     if (res.status_code === 1) {
         userinfo.value = res.user;
         userinfo.value.ico_url = "http://1.95.40.68:8081"  + userinfo.value.ico_url;
-        console.log(userinfo.value.ico_url)
+        console.log(userinfo.value.ico_url);
     } else {
-        ElMessage.error(res.status_msg)
+        ElMessage.error(res.status_msg);
     }
-}
+};
 //监听变化，实时更新
 watch(
     () => userinfo.value.is_follow,
     (newPath) => {
-        getuserdetail()
-        console.log(newPath)
+        getuserdetail();
+        console.log(newPath);
     }
-)
+);
 //关注
 const subscribe = async () => {
     const res = await follow(uid);
-    console.log(res)
+    console.log(res);
     if (res.status_code === 1) {
-        ElMessage.success(res.status_msg)
-        userinfo.value.is_follow = true
+        ElMessage.success(res.status_msg);
+        userinfo.value.is_follow = true;
     } else {
-        ElMessage.error(res.status_msg)
+        ElMessage.error(res.status_msg);
     }
-}
-console.log(subscribe)
+};
+console.log(subscribe);
 //取消关注
 const unsubscribe = async () => {
     const res = await unfollow(uid);
     if (res.status_code === 1) {
-        ElMessage.success(res.status_msg)
-        userinfo.value.is_follow = false
+        ElMessage.success(res.status_msg);
+        userinfo.value.is_follow = false;
     } else {
-        ElMessage.error(res.status_msg)
+        ElMessage.error(res.status_msg);
     }
-}
-console.log(unsubscribe)
+};
+console.log(unsubscribe);
 //获取用户的博客列表
 const Getuserbloglist = async () => {
     const res = await getuserbloglist(uid);
     if (res.status_code === 1) {
-        userbloglist.value = res.Blogs
+        userbloglist.value = res.Blogs;
     } else {
-        ElMessage.error(res.status_msg)
+        ElMessage.error(res.status_msg);
     }
-}
+};
 onMounted(() => {
-    getuserdetail()
-    Getuserbloglist()
-})
+    getuserdetail();
+    Getuserbloglist();
+});
 </script>
 <style scoped lang="scss">
 .main-content {

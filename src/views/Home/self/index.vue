@@ -29,8 +29,8 @@
     </div>
   </template>
   <script setup>
-  import Header from '@/components/Home/header.vue'
-  import { ref } from 'vue'
+  import Header from '@/components/Home/header.vue';
+  import { ref } from 'vue';
   
   const Menudata = ref({
     // title: '首页',
@@ -40,11 +40,11 @@
       { index: '',label: '个人主页'}
       // { index: '/branch/personnel', label: '人员管理' }
     ]
-  })
-  import { useRouter } from 'vue-router'
-  const router = useRouter()
+  });
+  import { useRouter } from 'vue-router';
+  const router = useRouter();
   function handleSelect(index) {
-    router.push(index)
+    router.push(index);
   }
   </script>
   <style scoped lang="scss">

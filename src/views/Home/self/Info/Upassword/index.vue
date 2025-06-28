@@ -8,14 +8,14 @@
     </div>
 </template>
 <script setup lang="ts">
-import { ref } from 'vue'
-import { useRoute } from 'vue-router'
-import Header from '@/components/Home/header.vue'
-void Header
-import { ElMessage } from 'element-plus'
-import { resetPassword } from '@/api/Self/index'
-const route = useRoute()
-const token = route.query.token as string
+import { ref } from 'vue';
+import { useRoute } from 'vue-router';
+import Header from '@/components/Home/header.vue';
+void Header;
+import { ElMessage } from 'element-plus';
+import { resetPassword } from '@/api/Self/index';
+const route = useRoute();
+const token = route.query.token as string;
 const Menudata = ref({
     // title: '首页',
     menu: [
@@ -23,19 +23,19 @@ const Menudata = ref({
       { index: '/home', label: '首页' },
       { index: '',label: '修改密码'}
     ]
-  })
-void Menudata
-const new_password = ref('')
+  });
+void Menudata;
+const new_password = ref('');
 const toResetPassword = async () => {
-    const res = await resetPassword(new_password.value)
+    const res = await resetPassword(new_password.value);
     if (res.status_code === 1) {
-        ElMessage.success(res.status_msg)
+        ElMessage.success(res.status_msg);
     } else {
-        ElMessage.error(res.status_msg)
+        ElMessage.error(res.status_msg);
     }
-}
-void toResetPassword
-console.log('token from email:', token)
+};
+void toResetPassword;
+console.log('token from email:', token);
 </script>
 <style scoped lang="scss">
 .main-container {

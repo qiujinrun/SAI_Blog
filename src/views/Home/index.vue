@@ -30,8 +30,8 @@
   </div>
 </template>
 <script setup>
-import Header from '@/components/Home/header.vue'
-import { ref } from 'vue'
+import Header from '@/components/Home/header.vue';
+import { ref } from 'vue';
 
 const Menudata = ref({
   // title: '首页',
@@ -39,12 +39,12 @@ const Menudata = ref({
 //   {  label: '首页' }
     { index: '/home', label: '首页' },
   ]
-})
-import { useRouter } from 'vue-router'
-const router = useRouter()
+});
+import { useRouter } from 'vue-router';
+const router = useRouter();
 // const route = useRoute()
 function handleSelect(index) {
-  router.push(index)
+  router.push(index);
 }
 </script>
 <style scoped lang="scss">

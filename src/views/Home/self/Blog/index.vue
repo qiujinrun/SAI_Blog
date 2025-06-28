@@ -27,26 +27,26 @@
 </template>
 
 <script setup>
-import { ref,onMounted } from 'vue'
-import { getuserbloglist } from '@/api/Home/user'
-import { ElMessage } from 'element-plus'
-import { useUserStore } from '@/store/modules/user'
-const userStore = useUserStore()
-const uid = userStore.userInfo.ID
-const userbloglist = ref([]) // 博客列表数据
+import { ref,onMounted } from 'vue';
+import { getuserbloglist } from '@/api/Home/user';
+import { ElMessage } from 'element-plus';
+import { useUserStore } from '@/store/modules/user';
+const userStore = useUserStore();
+const uid = userStore.userInfo.ID;
+const userbloglist = ref([]); // 博客列表数据
 //获取用户的博客列表
 const Getuserbloglist = async () => {
     const res = await getuserbloglist(uid);
     if (res.status_code === 1) {
-        userbloglist.value = res.Blogs
-        console.log(userbloglist.value)
+        userbloglist.value = res.Blogs;
+        console.log(userbloglist.value);
     } else {
-        ElMessage.error(res.status_msg)
+        ElMessage.error(res.status_msg);
     }
-}
+};
 onMounted(() => {
-    Getuserbloglist() 
-})
+    Getuserbloglist(); 
+});
 </script>
 <style scoped lang="scss">
 .userbloglist {

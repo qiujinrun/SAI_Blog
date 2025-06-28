@@ -1,5 +1,5 @@
 import  request  from "@/utils/request";
-import type { MailResponse,AvaterResponse,ResetResponse } from "@/api/Type/Self/type" 
+import type { MailResponse,AvaterResponse,ResetResponse } from "@/api/Type/Self/type"; 
 
 export function updateMail(email:any) {
   return request<MailResponse>({
@@ -19,7 +19,7 @@ export function uploadAvatar(file:any) {
     headers: {
       'Content-Type': 'multipart/form-data'
     }
-  })
+  });
 }
 
 //发送邮件去修改密码

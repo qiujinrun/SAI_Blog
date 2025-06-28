@@ -5,7 +5,7 @@ export function getbloglist(key:string,page:string){
         url:'/blog/list',
         method:'get',
         params:{key,page},
-    })
+    });
 }
 //获取博客总数
 export function getblogcount(){
@@ -13,5 +13,5 @@ export function getblogcount(){
         url:'/blog/count',
         method:'get',
 
-    })
+    });
 }

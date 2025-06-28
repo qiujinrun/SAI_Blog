@@ -70,16 +70,16 @@
 
 <script setup>
 // const VITE_API_URL = import.meta.env.VITE_API_URL
-import { ref, onMounted, watch } from 'vue'
-import { useRouter } from 'vue-router'
-import { ElMessage } from 'element-plus'
-import { useUserStore } from '@/store/modules/user'
-import { userdetail } from '@/api/Home/user'
-import { updateMail, uploadAvatar,sendResetMail } from "@/api/Self"
-import axios from 'axios'
+import { ref, onMounted, watch } from 'vue';
+import { useRouter } from 'vue-router';
+import { ElMessage } from 'element-plus';
+import { useUserStore } from '@/store/modules/user';
+import { userdetail } from '@/api/Home/user';
+import { updateMail, uploadAvatar,sendResetMail } from "@/api/Self";
+import axios from 'axios';
 
-const dialogVisible = ref(false)
-const userStore = useUserStore()
+const dialogVisible = ref(false);
+const userStore = useUserStore();
 const userInfo = userStore.userInfo;
 const uid = userStore.userInfo.ID;
 // const form = ref({
@@ -88,69 +88,69 @@ const uid = userStore.userInfo.ID;
 // })
 //修改密码跳转页面
 const SendResetMail = async () => {
-    const res = await sendResetMail()
+    const res = await sendResetMail();
     if (res.status_code === 1) {
-        ElMessage.success(res.status_msg) 
+        ElMessage.success(res.status_msg); 
     } else {
-        ElMessage.error(res.status_msg) 
+        ElMessage.error(res.status_msg); 
     }
-}
+};
 //获取我的信息
 const userinfo = ref({
     name: '',
     account: '',
     ico_url: '',
     email: ''
-})
+});
 //获取用户信息
 const getuserdetail = async () => {
     const res = await userdetail(uid);
-    console.log(res)
+    console.log(res);
     if (res.status_code === 1) {
         userinfo.value = res.user;
         userinfo.value.ico_url ="http://1.95.40.68:8081"+userinfo.value.ico_url;
-        console.log(userinfo.value.ico_url)
+        console.log(userinfo.value.ico_url);
     } else {
-        ElMessage.error(res.status_msg)
+        ElMessage.error(res.status_msg);
     }
-}
+};
 //修改邮箱
 const UpdateMail = async () => {
-    const res = await updateMail(userinfo.value.email)
+    const res = await updateMail(userinfo.value.email);
     if (res.status_code === 1) {
-        ElMessage.success(res.status_msg)
+        ElMessage.success(res.status_msg);
     } else {
-        ElMessage.error(res.status_msg)
+        ElMessage.error(res.status_msg);
     }
-}
+};
 //头像上传
-const imageUrl = ref('')
-const fileInput = ref(null)
+const imageUrl = ref('');
+const fileInput = ref(null);
 const triggerUpload = () => {
-    fileInput.value.click()
-}
+    fileInput.value.click();
+};
 const handleFileChange = async (event) => {
-    const file = event.target.files[0]
-    if (!file) return
+    const file = event.target.files[0];
+    if (!file) return;
 
     // 预览
-    imageUrl.value = URL.createObjectURL(file)
+    imageUrl.value = URL.createObjectURL(file);
 
     // 上传
-    const formData = new FormData()
-    formData.append('file', file)
+    const formData = new FormData();
+    formData.append('file', file);
 
-    const res = await uploadAvatar(file)
+    const res = await uploadAvatar(file);
     if (res.status_code === 1) {
-        ElMessage.success(res.status_msg)
-        getuserdetail()
+        ElMessage.success(res.status_msg);
+        getuserdetail();
     } else {
-        ElMessage.error(res.status_msg)
+        ElMessage.error(res.status_msg);
     }
-}
+};
 onMounted(() => {
-    getuserdetail()
-})
+    getuserdetail();
+});
 </script>
 <style scoped lang="scss">
 .main-content {

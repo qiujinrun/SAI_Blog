@@ -62,21 +62,21 @@
 </template>
 <script setup lang="ts">
 // const VITE_API_URL = import.meta.env.VITE_API_URL
-import { ref, onMounted, watchEffect, onUnmounted } from 'vue'
-import Header from '@/components/Home/header.vue'
-import { blogdetail, givelike } from '@/api/Home/blogdetail'
-import { postcomment } from '@/api/Comment'
-import type { BlogDetailResponse } from '@/api/Type/Home/type'
-import { ElMessage } from 'element-plus'
-import { useRoute } from 'vue-router'
-import { useUserStore } from '@/store/modules/user'
-const route = useRoute()
-const blog_id = route.params.blog_id
+import { ref, onMounted, watchEffect, onUnmounted } from 'vue';
+import Header from '@/components/Home/header.vue';
+import { blogdetail, givelike } from '@/api/Home/blogdetail';
+import { postcomment } from '@/api/Comment';
+import type { BlogDetailResponse } from '@/api/Type/Home/type';
+import { ElMessage } from 'element-plus';
+import { useRoute } from 'vue-router';
+import { useUserStore } from '@/store/modules/user';
+const route = useRoute();
+const blog_id = route.params.blog_id;
 //评论
-const formData = ref({ comment: '' })
+const formData = ref({ comment: '' });
 // 获取Store信息
-const userStore = useUserStore()
-const avater_url = userStore.userInfo.ico_url
+const userStore = useUserStore();
+const avater_url = userStore.userInfo.ico_url;
 // const uid = userStore.userInfo.ID
 
 const Menudata = ref({
@@ -84,7 +84,7 @@ const Menudata = ref({
         { index: '/home', label: '首页' },
         { index: '', label: '博客详情' }
     ]
-})
+});
 //博客详情
 const context = ref<BlogDetailResponse>({
     status_code: 0,
@@ -98,20 +98,20 @@ const context = ref<BlogDetailResponse>({
     likes: 0,
     comments: 0,
     comment_info: []
-})
+});
 //获取评论列表
-import type { Comment_info } from '@/api/Type/Home/type' // 根据你的路径调整
+import type { Comment_info } from '@/api/Type/Home/type'; // 根据你的路径调整
 
-const comment_info = ref<Comment_info[]>([])
+const comment_info = ref<Comment_info[]>([]);
 
 watchEffect(() => {
     if (context.value.comment_info) {
-        comment_info.value = context.value.comment_info
+        comment_info.value = context.value.comment_info;
     }
-})
+});
 
 const Getblogdetail = async () => {
-    const res = await blogdetail(blog_id)
+    const res = await blogdetail(blog_id);
     // console.log(res);
     if (res.status_code === 1) {
         context.value = res;
@@ -120,27 +120,27 @@ const Getblogdetail = async () => {
         ElMessage.error('请求失败，请稍后再试');
         console.log(res);
     }
-}
+};
 //评论
 const Postcomment = async () => {
-    const res = await postcomment(blog_id, formData.value.comment)
+    const res = await postcomment(blog_id, formData.value.comment);
     if (res.status_code === 1) {
         ElMessage.success('评论成功');
         Getblogdetail();
     } else {
         ElMessage.error('评论失败，请稍后再试');
     }
-}
+};
 //点赞
 const Likes = async () => {
-    const res = await givelike(blog_id)
+    const res = await givelike(blog_id);
     if (res.status_code === 1) {
         ElMessage.success('点赞成功');
         Getblogdetail();
     } else {
         ElMessage.error('点赞失败，请稍后再试');
     }
-}
+};
 //取消点赞
 // const Cancellike = async () => {
 //     const res = await cancellike(blog_id)
@@ -152,20 +152,20 @@ const Likes = async () => {
 //     }
 //  }
 onMounted(async () => {
-    document.body.classList.add('blog-detail')
-    window.scrollTo({ top: 0, behavior: 'smooth' })
+    document.body.classList.add('blog-detail');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     Getblogdetail();
-})
+});
 onUnmounted(() => {
-    document.body.classList.remove('blog-detail')
-})
+    document.body.classList.remove('blog-detail');
+});
 watchEffect(() => {
-    const blog_Id = route.params.blog_id
+    const blog_Id = route.params.blog_id;
     if (blog_Id) {
-        console.log(blog_Id)
-        Getblogdetail()
+        console.log(blog_Id);
+        Getblogdetail();
     }
-})
+});
 </script>
 <style scoped lang="scss">
 .el-content {
