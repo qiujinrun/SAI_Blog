@@ -36,7 +36,7 @@ export default createRouter({
     },
     {
       path: '/community/detail',
-      name: '重置密码',
+      name: '聊天室',
       component: () => import('../views/Community/index.vue'), 
     },
     {

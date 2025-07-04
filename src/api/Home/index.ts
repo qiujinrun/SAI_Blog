@@ -12,6 +12,5 @@ export function getblogcount(){
     return request<BlogListCountResponse>({
         url:'/blog/count',
         method:'get',
-
     });
 }

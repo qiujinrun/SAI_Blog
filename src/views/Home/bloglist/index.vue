@@ -32,18 +32,17 @@
     </div>
 </template>
 <script setup lang="ts">
-import { ref, onMounted, watch } from 'vue';
-import { getbloglist, getblogcount } from '@/api/Home';
-import type { Blog } from '@/api/Type/Home/type';
-import { ElMessage } from 'element-plus';
-let pageNo = ref<string>('1');
-let key = ref<string>('');
+import { ref, onMounted, watch } from "vue";
+import { getbloglist, getblogcount } from "@/api/Home";
+import type { Blog } from "@/api/Type/Home/type";
+import { ElMessage } from "element-plus";
+let pageNo = ref<string>("1");
+let key = ref<string>("");
 let totalmsg = ref<number>(90);
 const bloglist = ref({} as Blog[]);
 const blogcount = ref<number>(0);
 // let pageSize = ref<number>(10)
 // // let total = ref<number>(0)
-
 
 watch(pageNo, (newVal) => {
     fetchBlogList();
@@ -55,7 +54,7 @@ const fetchBlogList = async () => {
         bloglist.value = res.Blogs;
         totalmsg.value = res.Blogs.length;
     } else {
-        ElMessage.error('登录请求失败，请稍后再试');
+        ElMessage.error("登录请求失败，请稍后再试");
     }
 };
 const fetchBlogCount = async () => {
@@ -63,7 +62,7 @@ const fetchBlogCount = async () => {
     if (res.status_code === 1) {
         blogcount.value = res.status_msg;
     } else {
-        ElMessage.error('登录请求失败，请稍后再试');
+        ElMessage.error("登录请求失败，请稍后再试");
     }
 };
 onMounted(async () => {
@@ -78,7 +77,6 @@ onMounted(async () => {
     font-size: 30px;
     font-weight: bold;
     color: black;
-
 }
 
 .el-container {
@@ -86,8 +84,8 @@ onMounted(async () => {
     background-color: white;
     display: block;
     color: black;
-    .el-model {
 
+    .el-model {
         text-align: left;
         border-bottom: 0.1px solid #ccc;
         margin-top: 5px;
@@ -108,7 +106,6 @@ onMounted(async () => {
         }
 
         .writer {
-
             font-size: 16px;
             margin-right: 10px;
             margin-left: 15px;

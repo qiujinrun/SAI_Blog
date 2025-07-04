@@ -30,10 +30,11 @@ export function sendResetMail() {
   });
 }
 //修改密码
-export function resetPassword(password:any) {
+export function resetPassword(password:any,token:any) {
   return request<ResetResponse>({
     url: "/user/reset/admin",
     method: "post",
-    data: { password }
+    data: { password },
+    params:token,
   });
 }

@@ -77,7 +77,7 @@ function handleSelect(index) {
   }
 }
 .main-content{
-  padding-top: 60px;
+padding-top: 60px;
   margin-left: 180px;
 }
 .tac{

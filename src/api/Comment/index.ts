@@ -6,5 +6,4 @@ export function postcomment(blog_id:any,comment:any) {
         method: 'post',
         data: { comment }
     });
-
 }

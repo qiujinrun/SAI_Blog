@@ -27,7 +27,7 @@ const Menudata = ref({
 void Menudata;
 const new_password = ref('');
 const toResetPassword = async () => {
-    const res = await resetPassword(new_password.value);
+    const res = await resetPassword(new_password.value,token);
     if (res.status_code === 1) {
         ElMessage.success(res.status_msg);
     } else {

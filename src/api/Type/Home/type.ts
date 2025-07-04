@@ -89,3 +89,10 @@ export interface UnLikeResponse {
     status_code: number;
     status_msg: string;
 }
+
+//关注订阅
+export interface subscribeListResponse {
+    status_code:number,
+    status_msg:string,
+    Blogs:Blog[],
+}
